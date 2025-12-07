@@ -1,6 +1,6 @@
 # VeriVue - News Reading and Management System (Backend)
 
-**VeriVue** is a **News Reading and Management System Backend** developed using **Java**, **Spring Boot**, and **Spring Cloud**.
+**VeriVue** is a **News Reading and Management System Backend Project** developed using **Java**, **Spring Boot**, and **Spring Cloud**.
 
 It provides three sets of APIs for different user roles:
 
