@@ -1,0 +1,5 @@
+com\verivue\api\schedule\IScheduleClient.class
+com\verivue\api\article\fallback\IArticleClientFallback.class
+com\verivue\api\user\IUserClient.class
+com\verivue\api\wemedia\IWeMediaClient.class
+com\verivue\api\article\IArticleClient.class

@@ -1,0 +1,6 @@
+com\verivue\schedule\ScheduleApplication.class
+com\verivue\schedule\service\TaskService.class
+com\verivue\schedule\feign\ScheduleClient.class
+com\verivue\schedule\mapper\TaskInfoLogsMapper.class
+com\verivue\schedule\mapper\TaskInfoMapper.class
+com\verivue\schedule\service\impl\TaskServiceImpl.class

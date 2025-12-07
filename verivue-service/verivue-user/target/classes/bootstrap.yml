@@ -1,0 +1,28 @@
+server:
+  port: 51801
+
+spring:
+  application:
+    name: verivue-user
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 192.168.200.130:8848
+      config:
+        server-addr: 192.168.200.130:8848
+        file-extension: yml
+        name: verivue-user
+        # 可选：启用配置自动刷新
+        refresh-enabled: true
+  mail:
+    host: smtp.163.com
+    username: wenhuey1234@163.com
+    password: WTBZLVJIJIXTJKOF
+    port: 465
+    default-encoding: utf-8
+    properties:
+      mail:
+        smtp:
+          socketFactoryClass: javax.net.ssl.SSLSocketFactory
+        debug: true
+    protocol: smtps

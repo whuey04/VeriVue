@@ -1,0 +1,27 @@
+server:
+  port: 51801
+
+spring:
+  application:
+    name: verivue-user
+  cloud:
+    nacos:
+      discovery:
+        server-addr: #
+      config:
+        server-addr: #
+        file-extension: yml
+        name: verivue-user
+        refresh-enabled: true
+  mail:
+    host: #
+    username: #
+    password: #
+    port: #
+    default-encoding: utf-8
+    properties:
+      mail:
+        smtp:
+          socketFactoryClass: javax.net.ssl.SSLSocketFactory
+        debug: true
+    protocol: smtps

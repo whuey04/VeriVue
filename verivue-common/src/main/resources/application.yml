@@ -1,0 +1,18 @@
+spring:
+  web:
+    encoding:
+      force: true
+      charset: utf-8
+      enabled: true
+  aop:
+    proxy-target-class: true
+server:
+  tomcat:
+    uri-encoding: UTF-8
+springdoc:
+  api-docs:
+    enabled: true
+    path: /v3/api-docs
+  swagger-ui:
+    enabled: true
+    path: /swagger-ui.html

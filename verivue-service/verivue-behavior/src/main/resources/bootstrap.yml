@@ -1,0 +1,16 @@
+server:
+  port: 51806
+
+spring:
+  application:
+    name: verivue-behavior
+  cloud:
+    nacos:
+      discovery:
+        server-addr: #
+      config:
+        server-addr: #
+        file-extension: yml
+        name: verivue-behavior
+        # 可选：启用配置自动刷新
+        refresh-enabled: true

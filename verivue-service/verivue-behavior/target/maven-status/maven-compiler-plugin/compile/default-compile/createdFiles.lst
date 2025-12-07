@@ -1,0 +1,6 @@
+com\verivue\behavior\config\WebMvcConfig.class
+com\verivue\behavior\BehaviorApplication.class
+com\verivue\behavior\service\BehaviorService.class
+com\verivue\behavior\interceptor\UserTokenInterceptor.class
+com\verivue\behavior\service\impl\BehaviorServiceImpl.class
+com\verivue\behavior\controller\BehaviorController.class

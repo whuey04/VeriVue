@@ -1,0 +1,5 @@
+com\verivue\file\config\MinIOConfig.class
+com\verivue\file\config\MinIOConfigProperties.class
+com\verivue\file\service\FileStorageService.class
+META-INF\spring-configuration-metadata.json
+com\verivue\file\service\impl\MinIOFileStorageService.class

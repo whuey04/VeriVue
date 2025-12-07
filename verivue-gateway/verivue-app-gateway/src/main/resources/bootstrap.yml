@@ -1,0 +1,15 @@
+server:
+  port: 51601
+
+spring:
+  application:
+    name: verivue-app-gateway
+  cloud:
+    nacos:
+      discovery:
+        server-addr: #
+      config:
+        server-addr: #
+        file-extension: yml
+        name: verivue-app-gateway
+        refresh-enabled: true

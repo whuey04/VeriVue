@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.verivue.schedule.mapper.TaskInfoMapper">
+    <select id="queryFutureTime" resultType="com.verivue.model.schedule.pojo.TaskInfo">
+        SELECT *
+        FROM taskinfo
+        WHERE task_type = #{taskType}
+            AND priority = #{priority}
+            AND execute_time <![CDATA[<]]> #{future,javaType=java.util.Date}
+    </select>
+</mapper>

@@ -1,0 +1,3 @@
+com\verivue\wemedia\gateway\filter\AuthorizeFilter.class
+com\verivue\wemedia\gateway\WeMediaGatewayApplication.class
+com\verivue\wemedia\gateway\util\AppJwtUtil.class

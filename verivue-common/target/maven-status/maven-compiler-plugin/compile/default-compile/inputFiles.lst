@@ -1,0 +1,17 @@
+D:\VeriVueProjectCopyVer\Verivue\verivue-common\src\main\java\com\verivue\common\jackson\InitJacksonConfig.java
+D:\VeriVueProjectCopyVer\Verivue\verivue-common\src\main\java\com\verivue\common\constants\ArticleConstants.java
+D:\VeriVueProjectCopyVer\Verivue\verivue-common\src\main\java\com\verivue\common\constants\BehaviorConstants.java
+D:\VeriVueProjectCopyVer\Verivue\verivue-common\src\main\java\com\verivue\common\constants\UserVerificationConstants.java
+D:\VeriVueProjectCopyVer\Verivue\verivue-common\src\main\java\com\verivue\common\exception\ExceptionCatch.java
+D:\VeriVueProjectCopyVer\Verivue\verivue-common\src\main\java\com\verivue\common\jackson\ConfusionModule.java
+D:\VeriVueProjectCopyVer\Verivue\verivue-common\src\main\java\com\verivue\common\jackson\ConfusionSerializerModifier.java
+D:\VeriVueProjectCopyVer\Verivue\verivue-common\src\main\java\com\verivue\common\redis\CacheService.java
+D:\VeriVueProjectCopyVer\Verivue\verivue-common\src\main\java\com\verivue\common\constants\ApUserConstants.java
+D:\VeriVueProjectCopyVer\Verivue\verivue-common\src\main\java\com\verivue\common\constants\WmNewsMessageConstants.java
+D:\VeriVueProjectCopyVer\Verivue\verivue-common\src\main\java\com\verivue\common\exception\CustomException.java
+D:\VeriVueProjectCopyVer\Verivue\verivue-common\src\main\java\com\verivue\common\constants\WemediaConstants.java
+D:\VeriVueProjectCopyVer\Verivue\verivue-common\src\main\java\com\verivue\common\jackson\ConfusionDeserializer.java
+D:\VeriVueProjectCopyVer\Verivue\verivue-common\src\main\java\com\verivue\common\jackson\ConfusionSerializer.java
+D:\VeriVueProjectCopyVer\Verivue\verivue-common\src\main\java\com\verivue\common\constants\HotArticleConstants.java
+D:\VeriVueProjectCopyVer\Verivue\verivue-common\src\main\java\com\verivue\common\constants\ScheduleConstants.java
+D:\VeriVueProjectCopyVer\Verivue\verivue-common\src\main\java\com\verivue\common\jackson\ConfusionDeserializerModifier.java

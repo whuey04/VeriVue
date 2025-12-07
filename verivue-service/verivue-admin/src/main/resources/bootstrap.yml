@@ -1,0 +1,16 @@
+server:
+  port: 51805
+
+spring:
+  application:
+    name: verivue-admin
+  cloud:
+    nacos:
+      discovery:
+        server-addr: #
+      config:
+        server-addr: #
+        file-extension: yml
+        name: verivue-admin
+        # 可选：启用配置自动刷新
+        refresh-enabled: true

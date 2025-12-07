@@ -1,0 +1,16 @@
+server:
+  port: 51804
+
+spring:
+  application:
+    name: verivue-search
+  cloud:
+    nacos:
+      discovery:
+        server-addr: #
+      config:
+        server-addr: #
+        file-extension: yml
+        name: verivue-search
+        # 可选：启用配置自动刷新
+        refresh-enabled: true

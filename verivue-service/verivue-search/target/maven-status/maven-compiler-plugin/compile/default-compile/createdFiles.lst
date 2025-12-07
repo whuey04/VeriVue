@@ -1,0 +1,14 @@
+com\verivue\search\controller\ArticleSearchController.class
+com\verivue\search\interceptor\AppTokenInterceptor.class
+com\verivue\search\controller\ApAssociateWordsController.class
+com\verivue\search\service\ApAssociateWordsService.class
+com\verivue\search\SearchApplication.class
+com\verivue\search\config\ElasticSearchConfig.class
+com\verivue\search\config\WebMvcConfig.class
+com\verivue\search\service\impl\ApAssociateWordsServiceImpl.class
+com\verivue\search\controller\ApUserSearchController.class
+com\verivue\search\service\ApUserSearchService.class
+com\verivue\search\service\ArticleSearchService.class
+com\verivue\search\listener\SyncArticleListener.class
+com\verivue\search\service\impl\ApUserSearchServiceImpl.class
+com\verivue\search\service\impl\ArticleSearchServiceImpl.class

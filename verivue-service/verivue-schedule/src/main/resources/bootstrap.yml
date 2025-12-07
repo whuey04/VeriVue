@@ -1,0 +1,15 @@
+server:
+  port: 51701
+
+spring:
+  application:
+    name: verivue-schedule
+  cloud:
+    nacos:
+      discovery:
+        server-addr: #
+      config:
+        server-addr: #
+        file-extension: yml
+        name: verivue-schedule
+        refresh-enabled: true

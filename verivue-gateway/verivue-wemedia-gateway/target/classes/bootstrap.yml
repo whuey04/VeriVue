@@ -1,0 +1,15 @@
+server:
+  port: 51602
+
+spring:
+  application:
+    name: verivue-wemedia-gateway
+  cloud:
+    nacos:
+      discovery:
+        server-addr: #
+      config:
+        server-addr: #
+        file-extension: yml
+        name: verivue-wemedia-gateway
+        refresh-enabled: true

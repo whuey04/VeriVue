@@ -1,0 +1,10 @@
+com\verivue\comment\service\CommentReplyService.class
+com\verivue\comment\config\InitConfig.class
+com\verivue\comment\interceptor\AppTokenInterceptor.class
+com\verivue\comment\config\WebMvcConfig.class
+com\verivue\comment\controller\CommentController.class
+com\verivue\comment\service\CommentService.class
+com\verivue\comment\CommentApplication.class
+com\verivue\comment\service\impl\CommentReplyServiceImpl.class
+com\verivue\comment\controller\CommentReplyController.class
+com\verivue\comment\service\impl\CommentServiceImpl.class

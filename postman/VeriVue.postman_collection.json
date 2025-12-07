@@ -1,0 +1,2877 @@
+{
+	"info": {
+		"_postman_id": "4dca9ae3-9280-47e8-97c3-4604fd6f23d3",
+		"name": "VeriVue",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "37282185"
+	},
+	"item": [
+		{
+			"name": "Admin",
+			"item": [
+				{
+					"name": "Channel Management",
+					"item": [
+						{
+							"name": "1. Get Channel List",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "token",
+										"value": "{{token}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"name\" : \"\",\r\n    \"page\" : 1 ,\r\n    \"size\" : 10\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:51603/wemedia/api/v1/channel/list",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "51603",
+									"path": [
+										"wemedia",
+										"api",
+										"v1",
+										"channel",
+										"list"
+									]
+								},
+								"description": "## API Endpoint: List Channels\n\n### Description\n\nThis endpoint retrieves a list of channels from the media service. It allows the client to specify pagination parameters to control the number of results returned.\n\n### Request\n\n**Method:** GET  \n**URL:** `http://localhost:51603/wemedia/api/v1/channel/list`\n\n#### Query Parameters\n\n- **name** (string, optional): The name of the channel to filter the results. If left empty, all channels will be retrieved.\n    \n- **page** (integer, required): The page number of the results to retrieve. This is useful for pagination.\n    \n- **size** (integer, required): The number of results to return per page.\n    \n\n**Example Request Body:**\n\n``` json\n{\n  \"name\": \"\",\n  \"page\": 1,\n  \"size\": 10\n}\n\n ```\n\n### Response\n\n**Status Code:** 200  \n**Content-Type:** application/json\n\n#### Response Structure\n\nThe response will contain the following fields:\n\n- **host** (string or null): The host information, if applicable.\n    \n- **code** (integer): A status code indicating the result of the request.\n    \n- **message** (string): A message providing additional context about the response.\n    \n- **data** (array): An array of channel objects, each containing:\n    \n    - **id** (string): The unique identifier for the channel.\n        \n    - **name** (string): The name of the channel.\n        \n    - **description** (string): A brief description of the channel.\n        \n    - **isDefault** (boolean): Indicates if this channel is the default channel.\n        \n    - **status** (boolean): The active status of the channel.\n        \n    - **ord** (integer): The order of the channel in the list.\n        \n    - **createdTime** (integer): The timestamp of when the channel was created.\n        \n\n**Example Response:**\n\n``` json\n{\n  \"host\": null,\n  \"code\": 0,\n  \"message\": \"\",\n  \"data\": [\n    {\n      \"id\": \"\",\n      \"name\": \"\",\n      \"description\": \"\",\n      \"isDefault\": true,\n      \"status\": true,\n      \"ord\": 0,\n      \"createdTime\": 0\n    }\n  ]\n}\n\n ```\n\n### Notes\n\n- Ensure that the `page` and `size` parameters are provided to effectively paginate through the list of channels.\n    \n- The response will provide an array of channels, allowing clients to access multiple channel details in a single request."
+							},
+							"response": []
+						},
+						{
+							"name": "2. Save New Channel",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "token",
+										"value": "{{token}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"name\": \"Postman\",\r\n    \"ord\": 0,\r\n    \"description\": \"Tester for postman\",\r\n    \"status\": 1,\r\n    \"isDefault\": 1\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:51603/wemedia/api/v1/channel/save",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "51603",
+									"path": [
+										"wemedia",
+										"api",
+										"v1",
+										"channel",
+										"save"
+									]
+								},
+								"description": "## Save Channel Endpoint\n\nThis endpoint allows users to create or update a channel in the system. It is designed to save channel details such as the name, order, description, status, and whether it is a default channel.\n\n### Request\n\n- **Method**: POST\n    \n- **URL**: `http://localhost:51603/wemedia/api/v1/channel/save`\n    \n\n#### Request Body\n\nThe request body must be in JSON format and should include the following parameters:\n\n- **name** (string): The name of the channel.\n    \n- **ord** (integer): The order in which the channel should be displayed.\n    \n- **description** (string): A brief description of the channel.\n    \n- **status** (boolean): The status of the channel (e.g., active or inactive).\n    \n- **isDefault** (boolean): Indicates whether this channel is the default channel (1 for true, 0 for false).\n    \n\n**Example Request Body:**\n\n``` json\n{\n  \"name\": \"Postman\",\n  \"ord\": 0,\n  \"description\": \"Tester for postman\",\n  \"status\": 1,\n  \"isDefault\": 1\n}\n\n ```\n\n### Response\n\nUpon a successful request, the API will return a response with the following structure:\n\n- **Status**: 200 (OK)\n    \n- **Content-Type**: application/json\n    \n- **Response Body**:\n    \n    - **host** (null): This field may contain the host information, but is currently null.\n        \n    - **code** (integer): A code indicating the result of the operation (0 for success).\n        \n    - **message** (string): A message providing additional information about the request (empty on success).\n        \n    - **data** (null): This field may contain additional data related to the operation, but is currently null.\n        \n\n**Example Response:**\n\n``` json\n{\n  \"host\": null,\n  \"code\": 0,\n  \"message\": \"\",\n  \"data\": null\n}\n\n ```\n\n### Important Headers\n\nEnsure to include the following headers in your request:\n\n- **Content-Type**: `application/json` - This header indicates the format of the request body."
+							},
+							"response": []
+						},
+						{
+							"name": "3. Update Channel",
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "token",
+										"value": "{{token}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"id\": 1959496186935541761,\r\n    \"name\": \"Postman\",\r\n    \"ord\": 1,\r\n    \"status\": false,\r\n    \"isDefault\": true,\r\n    \"description\": \"Tester for postman\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:51603/wemedia/api/v1/channel/update",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "51603",
+									"path": [
+										"wemedia",
+										"api",
+										"v1",
+										"channel",
+										"update"
+									]
+								},
+								"description": "## Update Channel\n\nThis endpoint allows you to update the details of a specific channel in the system. It requires the channel's unique identifier and various attributes that define the channel's properties.\n\n### Request\n\n- **Method**: PUT\n    \n- **URL**: `http://localhost:51603/wemedia/api/v1/channel/update`\n    \n- **Content-Type**: application/json\n    \n\n#### Request Body Parameters\n\nThe request body must be a JSON object containing the following parameters:\n\n- **id** (number, required): The unique identifier of the channel you wish to update.\n    \n- **name** (string, required): The name of the channel.\n    \n- **ord** (number, required): The order in which the channel should be displayed.\n    \n- **status** (boolean, required): The status of the channel, indicating whether it is active or inactive.\n    \n- **isDefault** (boolean, required): A flag indicating if this channel is the default channel.\n    \n- **description** (string, optional): A brief description of the channel.\n    \n\n### Response\n\nUpon a successful update, the API will return a JSON response with the following structure:\n\n- **host** (null): This field is currently not used and will return null.\n    \n- **code** (number): A status code indicating the result of the operation. A value of `0` indicates success.\n    \n- **message** (string): A message providing additional information about the operation. This will be empty on success.\n    \n- **data** (null): This field is currently not used and will return null.\n    \n\n### Example\n\n#### Request Example\n\n``` json\n{\n  \"id\": 1959448078390263800,\n  \"name\": \"Posttt\",\n  \"ord\": 1,\n  \"status\": true,\n  \"isDefault\": true,\n  \"description\": \"TestUpdate\"\n}\n\n ```\n\n#### Response Example\n\n``` json\n{\n  \"host\": null,\n  \"code\": 0,\n  \"message\": \"\",\n  \"data\": null\n}\n\n ```\n\n### Notes\n\n- Ensure that the `id` provided corresponds to an existing channel in the system.\n    \n- All required fields must be included in the request body for a successful update."
+							},
+							"response": []
+						},
+						{
+							"name": "4. Delete Channel",
+							"request": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "token",
+										"value": "{{token}}",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "http://localhost:51603/wemedia/api/v1/channel/del/1959448078390263810",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "51603",
+									"path": [
+										"wemedia",
+										"api",
+										"v1",
+										"channel",
+										"del",
+										"1959448078390263810"
+									]
+								},
+								"description": "## DELETE Channel\n\nThis endpoint is used to delete a specific channel identified by its unique ID. It is part of the WeMedia API, which allows users to manage their media channels.\n\n### Request\n\n- **Method**: DELETE\n    \n- **URL**: `http://localhost:51603/wemedia/api/v1/channel/del/{channelId}`\n    \n\n#### Path Parameters\n\n- `channelId` (string, required): The unique identifier of the channel that you wish to delete. In this example, the channel ID is `1959448078390263810`.\n    \n\n### Response\n\nUpon a successful deletion, the API will return a JSON response with the following structure:\n\n- **Status**: `200 OK` - Indicates that the request was successful.\n    \n- **Content-Type**: `application/json`\n    \n- **Response Body**:\n    \n    - `host`: (null) - Placeholder for any host information, if applicable.\n        \n    - `code`: (integer) - A status code indicating the result of the operation. A value of `0` typically indicates success.\n        \n    - `message`: (string) - A message providing additional information about the operation. This may be empty if there are no additional details.\n        \n    - `data`: (null) - This field is reserved for any additional data that may be returned, but it will be `null` in this case.\n        \n\n### Usage\n\nTo effectively use this DELETE request, ensure that you replace `{channelId}` in the URL with the actual ID of the channel you wish to delete. A successful response confirms that the channel has been removed from the system."
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Sensitive Word Management",
+					"item": [
+						{
+							"name": "1. Get Sensitive List",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "token",
+										"value": "{{token}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"name\": \"\",\r\n    \"page\": 1,\r\n    \"size\": 10\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:51603/wemedia/api/v1/sensitive/list",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "51603",
+									"path": [
+										"wemedia",
+										"api",
+										"v1",
+										"sensitive",
+										"list"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "2. Add New Sensitive",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "token",
+										"value": "{{token}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"sensitives\": \"\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:51603/wemedia/api/v1/sensitive/save",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "51603",
+									"path": [
+										"wemedia",
+										"api",
+										"v1",
+										"sensitive",
+										"save"
+									]
+								},
+								"description": "## Save Sensitive Data\n\nThis endpoint allows clients to save sensitive data to the server. It is designed to handle sensitive information securely.\n\n### Request\n\n- **Method**: POST\n    \n- **URL**: `http://localhost:51603/wemedia/api/v1/sensitive/save`\n    \n- **Request Body**: The request must include a JSON object with the following structure:\n    \n    - `sensitives` (string): The sensitive data that needs to be saved.\n        \n\n**Example Request Body**:\n\n``` json\n{\n  \"sensitives\": \"your_sensitive_data_here\"\n}\n\n ```\n\n### Response\n\nUpon a successful request, the server will respond with a JSON object containing the following fields:\n\n- **host**: (null) - The host information, currently not provided.\n    \n- **code**: (integer) - A status code indicating the result of the operation (0 indicates success).\n    \n- **message**: (string) - A message providing additional information about the request (empty if no message).\n    \n- **data**: (string) - Additional data returned from the operation (empty if no additional data).\n    \n\n**Example Response**:\n\n``` json\n{\n  \"host\": null,\n  \"code\": 0,\n  \"message\": \"\",\n  \"data\": \"\"\n}\n\n ```\n\n### Status Codes\n\n- **200 OK**: The request was successful, and the sensitive data has been saved."
+							},
+							"response": []
+						},
+						{
+							"name": "3. Update Sensitive",
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "token",
+										"value": "{{token}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"id\": 4,\r\n    \"sensitives\": \"\"\r\n }\r\n",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:51603/wemedia/api/v1/sensitive/update",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "51603",
+									"path": [
+										"wemedia",
+										"api",
+										"v1",
+										"sensitive",
+										"update"
+									]
+								},
+								"description": "## Update Sensitive Information\n\nThis endpoint allows users to update sensitive information associated with a specific ID. It is a PUT request that modifies existing records in the system.\n\n### Request\n\n- **Method**: PUT\n    \n- **URL**: `http://localhost:51603/wemedia/api/v1/sensitive/update`\n    \n- ParameterTypeDescriptionidNumberThe unique identifier of the sensitive item to be updated.sensitivesStringThe new sensitive information to be associated with the specified ID.\n    \n\n#### Example Request Body\n\n``` json\n{\n  \"id\": 4,\n  \"sensitives\": \"XXX\"\n}\n\n ```\n\n### Response\n\nUpon a successful update, the API will return a response with the following structure:\n\n- **Status**: 200 OK\n    \n- **Content-Type**: application/json\n    \n- FieldTypeDescriptionhostNullCurrently not used, will return null.codeNumberStatus code indicating the result of the operation. A value of 0 indicates success.messageStringA message providing additional information about the operation (if any).dataStringAdditional data related to the operation (currently empty).\n    \n\n#### Example Response\n\n``` json\n{\n  \"host\": null,\n  \"code\": 0,\n  \"message\": \"\",\n  \"data\": \"\"\n}\n\n ```\n\n### Notes\n\n- Ensure that the `id` provided corresponds to an existing sensitive record in the database.\n    \n- The `sensitives` field should contain the updated sensitive information that you want to store.\n    \n- A successful response indicates that the update was processed correctly, while a non-zero code may indicate an error that needs to be addressed."
+							},
+							"response": []
+						},
+						{
+							"name": "4. Delete Sensitive",
+							"request": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "token",
+										"value": "{{token}}",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "http://localhost:51603/wemedia/api/v1/sensitive/del/3",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "51603",
+									"path": [
+										"wemedia",
+										"api",
+										"v1",
+										"sensitive",
+										"del",
+										"3"
+									]
+								},
+								"description": "## DELETE Sensitive Resource\n\nThis endpoint allows you to delete a sensitive resource identified by its unique ID.\n\n### Request\n\n- **Method**: `DELETE`\n    \n- **Endpoint**: `http://localhost:51603/wemedia/api/v1/sensitive/del/{id}`\n    \n- **Path Parameter**:\n    \n    - `id` (integer): The unique identifier of the sensitive resource you wish to delete. In this example, the ID is `3`.\n        \n\n### Response\n\nUpon successful deletion, the API returns a response with the following structure:\n\n- **Status Code**: `200 OK`\n    \n- **Content-Type**: `application/json`\n    \n- { \"host\": null, \"code\": 0, \"message\": \"\", \"data\": \"\"}\n    \n\n#### Response Fields:\n\n- `host`: Information about the host (currently null).\n    \n- `code`: A status code indicating the result of the operation (0 indicates success).\n    \n- `message`: A message providing additional context (empty in this case).\n    \n- `data`: Any additional data related to the response (empty in this case).\n    \n\n### Notes\n\n- Ensure that the ID provided in the request corresponds to an existing sensitive resource to avoid errors."
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "User Verification Management",
+					"item": [
+						{
+							"name": "1. Get User Verification List",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "token",
+										"value": "{{token}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"id\": null,\r\n    \"msg\": \"\",\r\n    \"page\": 1,\r\n    \"size\": 10,\r\n    \"status\": null\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:51603/user/api/v1/auth/list",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "51603",
+									"path": [
+										"user",
+										"api",
+										"v1",
+										"auth",
+										"list"
+									]
+								},
+								"description": "## API Endpoint: List User Authentications\n\nThis endpoint retrieves a list of user authentication records. It allows clients to paginate through the results and filter based on the status of the authentications.\n\n### Request Method\n\n- **GET**\n    \n\n### Request URL\n\n- `http://localhost:51603/user/api/v1/auth/list`\n    \n\n### Request Parameters\n\nThe request body should be formatted as JSON and includes the following parameters:\n\n- **id** (optional, `null`): This parameter can be used to specify a particular user ID for filtering. When set to `null`, it retrieves all records.\n    \n- **msg** (optional, `\"\"`): A message filter for additional querying. Currently, it is not utilized.\n    \n- **page** (required, `1`): The page number for pagination. This determines which set of results to return.\n    \n- **size** (required, `10`): The number of records to return per page. This controls the size of the result set.\n    \n- **status** (required, `0`): This parameter is used to filter results based on the status of the authentication. A value of `0` typically indicates a specific status to filter by.\n    \n\n### Response Structure\n\nUpon a successful request, the API will return a response with the following structure:\n\n- **Status**: `200` (indicating success)\n    \n- **Content-Type**: `application/json`\n    \n- **Response Body**:\n    \n    - **host**: (nullable) The host information, if applicable.\n        \n    - **code**: (integer) A code indicating the result of the request (e.g., `0` for success).\n        \n    - **message**: (nullable) A message providing additional context about the response.\n        \n    - **data**: (array) An array containing the authentication records. This will be empty if no records match the request parameters.\n        \n    - **currentPage**: (integer) The current page number of the results returned.\n        \n    - **size**: (integer) The number of records returned in this response.\n        \n    - **total**: (integer) The total number of records available that match the request parameters.\n        \n\n### Example Response\n\n``` json\n{\n  \"host\": null,\n  \"code\": 0,\n  \"message\": null,\n  \"data\": [],\n  \"currentPage\": 0,\n  \"size\": 0,\n  \"total\": 0\n}\n\n ```\n\n### Usage Notes\n\n- Ensure to adjust the `page` and `size` parameters based on your pagination needs.\n    \n- The `status` parameter is crucial for filtering results; please refer to the API documentation for valid status values.\n    \n- The response will indicate if there are no records available by returning an empty `data` array.\n    \n\nThis endpoint is essential for applications that need to manage or display user authentication records effectively."
+							},
+							"response": []
+						},
+						{
+							"name": "2. Approve Verification",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "token",
+										"value": "{{token}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"id\": 2,\r\n    \"msg\": \"\",\r\n    \"page\": 1,\r\n    \"size\": 10,\r\n    \"status\": 9 // Set status to APPROVED\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:51603/user/api/v1/auth/authPass",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "51603",
+									"path": [
+										"user",
+										"api",
+										"v1",
+										"auth",
+										"authPass"
+									]
+								},
+								"description": "## Endpoint Description\n\nThis endpoint is used for authenticating a user by passing specific parameters related to the authentication process.\n\n### Request\n\n- **Method**: POST\n    \n- **URL**: `http://localhost:51603/user/api/v1/auth/authPass`\n    \n- **Request Body**: The request should contain a JSON object with the following parameters:\n    \n    - `id` (integer): The unique identifier for the user.\n        \n    - `msg` (string): A message field, which may be used for additional context (currently not utilized).\n        \n    - `page` (integer): The page number for pagination purposes.\n        \n    - `size` (integer): The number of items per page.\n        \n    - `status` (integer): The status code representing the current authentication state.\n        \n\n#### Example Request Body\n\n``` json\n{\n  \"id\": 1,\n  \"msg\": \"\",\n  \"page\": 1,\n  \"size\": 10,\n  \"status\": 9\n}\n\n ```\n\n### Response\n\n- **Status Code**: 200 OK\n    \n- **Content-Type**: application/json\n    \n- **Response Body**: The response will return a JSON object containing the following fields:\n    \n    - `host` (null): This field may provide information about the host if applicable.\n        \n    - `code` (integer): A status code indicating the result of the authentication process.\n        \n    - `message` (string): A message providing additional information about the response.\n        \n    - `data` (null): This field may contain additional data related to the response, currently set to null.\n        \n\n#### Example Response Body\n\n``` json\n{\n  \"host\": null,\n  \"code\": 0,\n  \"message\": \"\",\n  \"data\": null\n}\n\n ```\n\n### Notes\n\n- Ensure that the `id` parameter corresponds to a valid user in the system.\n    \n- The `msg` parameter is optional and can be left empty if not needed.\n    \n- The `page` and `size` parameters are used for pagination, and their values should be set according to the requirements of the request.\n    \n- The `status` parameter should reflect the current authentication status."
+							},
+							"response": []
+						},
+						{
+							"name": "3. Reject Verification",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "token",
+										"value": "{{token}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"id\": 1,\r\n    \"msg\": \"Reject Reason.\",\r\n    \"page\": 1,\r\n    \"size\": 10,\r\n    \"status\": 2 // Set status to REJECTED\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:51603/user/api/v1/auth/authFail",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "51603",
+									"path": [
+										"user",
+										"api",
+										"v1",
+										"auth",
+										"authFail"
+									]
+								},
+								"description": "### Endpoint Description\n\nThis endpoint is used to handle authentication failures for users in the system. It allows the client to send details regarding the failure, which can be useful for logging or debugging purposes.\n\n### Request Parameters\n\nThe request is sent as a JSON object in the body and includes the following parameters:\n\n- **id** (integer): The unique identifier for the user associated with the authentication attempt.\n    \n- **msg** (string): A message providing the reason for the authentication failure.\n    \n- **page** (integer): The current page number for pagination purposes.\n    \n- **size** (integer): The number of items per page for pagination.\n    \n- **status** (integer): The status code representing the outcome of the authentication attempt.\n    \n\n### Response Structure\n\nUpon successful processing of the request, the server responds with a JSON object containing the following fields:\n\n- **host** (string|null): The host information, which may be null.\n    \n- **code** (integer): A code indicating the result of the request (0 for success).\n    \n- **message** (string): A message providing additional information about the request, which is empty in this case.\n    \n- **data** (string): Any additional data returned by the server, which is empty in this case.\n    \n\n### Example Request\n\n``` json\n{\n  \"id\": 1,\n  \"msg\": \"Reject Reason.\",\n  \"page\": 1,\n  \"size\": 10,\n  \"status\": 2\n}\n\n ```\n\n### Example Response\n\n``` json\n{\n  \"host\": null,\n  \"code\": 0,\n  \"message\": \"\",\n  \"data\": \"\"\n}\n\n ```"
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Article Manual Review Management",
+					"item": [
+						{
+							"name": "1.Get Article List",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "token",
+										"value": "{{token}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"id\": null,\r\n    \"msg\": \"\",\r\n    \"page\": 1,\r\n    \"size\": 10,\r\n    \"status\": null,\r\n    \"title\": \"\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:51603/wemedia/api/v1/news/list_vo",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "51603",
+									"path": [
+										"wemedia",
+										"api",
+										"v1",
+										"news",
+										"list_vo"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "2. Get Article Details",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "token",
+										"value": "{{token}}",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "http://localhost:51603/wemedia/api/v1/news/one_vo/1958763587678187521",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "51603",
+									"path": [
+										"wemedia",
+										"api",
+										"v1",
+										"news",
+										"one_vo",
+										"1958763587678187521"
+									]
+								},
+								"description": "## Get News Article\n\nThis endpoint retrieves a specific news article based on the provided article ID.\n\n### Request\n\n- **Method**: GET\n    \n- **URL**: `http://localhost:51603/wemedia/api/v1/news/one_vo/{articleId}`\n    \n- **Path Parameter**:\n    \n    - `articleId` (string): The unique identifier for the news article you wish to retrieve. In this example, the article ID is `1958763587678187521`.\n        \n\n### Response\n\n- **Status Code**: 200 OK\n    \n- **Content-Type**: application/json\n    \n- **Response Body**:\n    \n    - `host`: (null) - The host information (if applicable).\n        \n    - `code`: (integer) - Response code indicating the status of the request.\n        \n    - `message`: (string) - A message providing additional context about the response.\n        \n    - `data`: (object) - Contains the details of the requested news article:\n        \n        - `id`: (string) - The unique identifier of the article.\n            \n        - `userId`: (integer) - The ID of the user who submitted the article.\n            \n        - `title`: (string) - The title of the article.\n            \n        - `content`: (string) - The main content of the article.\n            \n        - `type`: (integer) - The type/category of the article.\n            \n        - `channelId`: (integer) - The ID of the channel associated with the article.\n            \n        - `labels`: (string) - Any labels/tags associated with the article.\n            \n        - `createdTime`: (integer) - The timestamp when the article was created.\n            \n        - `submitedTime`: (integer) - The timestamp when the article was submitted.\n            \n        - `status`: (integer) - The current status of the article.\n            \n        - `publishTime`: (integer) - The timestamp when the article was published.\n            \n        - `reason`: (string) - Reason for the current status (if applicable).\n            \n        - `articleId`: (integer) - The ID of the article.\n            \n        - `images`: (array|null) - An array of image URLs associated with the article (if applicable).\n            \n        - `enable`: (integer) - Indicates whether the article is enabled (1) or disabled (0).\n            \n        - `authorName`: (string) - The name of the author of the article.\n            \n\n### Notes\n\n- Ensure that the article ID is valid and corresponds to an existing article in the system to receive a successful response.\n    \n- The response will include a `data` object with various fields that provide detailed information about the requested article."
+							},
+							"response": []
+						},
+						{
+							"name": "3.Article Review Failed",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "token",
+										"value": "{{token}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"id\": 1958763587678187521,\r\n    \"msg\": \"Reject Reason\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:51603/wemedia/api/v1/news/auth_fail",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "51603",
+									"path": [
+										"wemedia",
+										"api",
+										"v1",
+										"news",
+										"auth_fail"
+									]
+								},
+								"description": "## Endpoint Description\n\nThis endpoint is designed to handle authentication failure notifications for news submissions. When an authentication attempt fails, this POST request allows the client to send a rejection reason along with a unique identifier for the submission.\n\n### Request Parameters\n\nThe request body should be in JSON format and must include the following parameters:\n\n- **id** (number): A unique identifier for the news submission that is being rejected. This ID is essential for tracking the specific submission associated with the authentication failure.\n    \n- **msg** (string): A message that describes the reason for the rejection. This helps in understanding why the authentication did not succeed.\n    \n\n#### Example Request Body\n\n``` json\n{\n  \"id\": 1958763587678187500,\n  \"msg\": \"Reject Reason\"\n}\n\n ```\n\n### Response Structure\n\nUpon a successful request, the server will return a response with the following structure:\n\n- **host** (null): This field may indicate the host information, but it is returned as null in this context.\n    \n- **code** (number): A status code indicating the result of the operation. A code of `0` typically indicates success.\n    \n- **message** (string): A message providing additional context about the operation. In this case, it may return an empty string if there are no additional messages.\n    \n- **data** (string): This field can be used to return any relevant data. It is returned as an empty string in this context.\n    \n\n#### Example Response\n\n``` json\n{\n  \"host\": null,\n  \"code\": 0,\n  \"message\": \"\",\n  \"data\": \"\"\n}\n\n ```\n\n### Status Code\n\n- **200 OK**: Indicates that the request was processed successfully.\n    \n\nThis endpoint is crucial for managing authentication failures and ensuring that appropriate feedback is provided for news submissions."
+							},
+							"response": []
+						},
+						{
+							"name": "4.Article Review Passed",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "token",
+										"value": "{{token}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"id\": 1958763587678187521,\r\n    \"msg\": \"\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:51603/wemedia/api/v1/news/auth_pass",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "51603",
+									"path": [
+										"wemedia",
+										"api",
+										"v1",
+										"news",
+										"auth_pass"
+									]
+								},
+								"description": "# POST /wemedia/api/v1/news/auth_pass\n\nThis endpoint is used to authenticate a request related to news access. It verifies the provided identifier and processes the request accordingly.\n\n## Request Body\n\nThe request must contain a JSON object with the following parameters:\n\n- **id** (number): A unique identifier for the request. This is a mandatory field.\n    \n- **msg** (string): An optional message field that can be used to provide additional context or information.\n    \n\n### Example Request\n\n``` json\n{\n  \"id\": 1958763587678187500,\n  \"msg\": \"\"\n}\n\n ```\n\n## Response\n\nOn successful processing of the request, the API returns a JSON response with the following structure:\n\n- **host** (null): This field indicates the host information, which may not be applicable in all cases.\n    \n- **code** (number): A status code indicating the result of the request. A value of `0` typically indicates success.\n    \n- **message** (string): A message providing additional information about the request's outcome.\n    \n- **data** (string): This field may contain additional data related to the request, which can be empty in some cases.\n    \n\n### Example Response\n\n``` json\n{\n  \"host\": null,\n  \"code\": 0,\n  \"message\": \"\",\n  \"data\": \"\"\n}\n\n ```\n\n### Status Codes\n\n- **200 OK**: The request was successful and the response contains the expected data."
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Admin Management",
+					"item": [
+						{
+							"name": "Common - Upload Image",
+							"item": [
+								{
+									"name": "Upload Image",
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "token",
+												"value": "{{token}}",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "formdata",
+											"formdata": [
+												{
+													"key": "file",
+													"type": "file",
+													"src": "/C:/Users/wenhu/Pictures/milktea.png"
+												}
+											]
+										},
+										"url": {
+											"raw": "http://localhost:51603/admin/api/v1/admin/common/upload",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "51603",
+											"path": [
+												"admin",
+												"api",
+												"v1",
+												"admin",
+												"common",
+												"upload"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "1. Add Admin",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "token",
+										"value": "{{token}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"name\":\"mika\",\r\n    \"nickname\":\"MikkA\",\r\n    \"password\":\"mika\",\r\n    \"phone\":\"1234567890\",\r\n    \"email\":\"mikadesu@gmail.com\",\r\n    \"image\":\"http://192.168.200.130:9000/verivue/2025/08/28/724782d25b89407f9e9a907c51250a87.png\"\r\n\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:51603/admin/api/v1/admin/add",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "51603",
+									"path": [
+										"admin",
+										"api",
+										"v1",
+										"admin",
+										"add"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "2. Get Admin List",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "token",
+										"value": "{{token}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"name\": \"\",\r\n    \"status\": \"\",\r\n    \"page\": 1,\r\n    \"size\": 10\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:51603/admin/api/v1/admin/list",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "51603",
+									"path": [
+										"admin",
+										"api",
+										"v1",
+										"admin",
+										"list"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "3. Get Admin Details By ID",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "token",
+										"value": "{{token}}",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "http://localhost:51603/admin/api/v1/admin/get/1960841924177178626",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "51603",
+									"path": [
+										"admin",
+										"api",
+										"v1",
+										"admin",
+										"get",
+										"1960841924177178626"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "4. Update Admin",
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "token",
+										"value": "{{token}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"id\": \"1960841924177178626\",\r\n    \"nickname\": \"MikkA\",\r\n    \"password\": \"mikka\",\r\n    \"phone\": \"1234567890\",\r\n    \"email\": \"mikadesu@gmail.com\",\r\n    \"image\": \"http://192.168.200.130:9000/verivue/2025/08/28/724782d25b89407f9e9a907c51250a87.png\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:51603/admin/api/v1/admin/update",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "51603",
+									"path": [
+										"admin",
+										"api",
+										"v1",
+										"admin",
+										"update"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Admin Login",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"let res = pm.response.json();\r",
+									"if (res.data && res.data.token) {\r",
+									"    pm.environment.set(\"token\", res.data.token);\r",
+									"    console.log(\"Token Saved:\", res.data.token);\r",
+									"}\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"admin\",\r\n    \"password\": \"admin\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:51603/admin/login",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "51603",
+							"path": [
+								"admin",
+								"login"
+							]
+						},
+						"description": "## Login Endpoint\n\nThis endpoint is used to authenticate a user by logging them into the system. It accepts user credentials and returns an authentication token upon successful login.\n\n### Request\n\n**Method:** POST  \n**URL:** `http://localhost:51603/admin/login`\n\n#### Request Body\n\nThe request body must be in JSON format and should contain the following parameters:\n\n- **name** (string): The username of the user attempting to log in.\n    \n- **password** (string): The password associated with the username.\n    \n\n**Example:**\n\n``` json\n{\n  \"name\": \"admin\",\n  \"password\": \"admin\"\n}\n\n ```\n\n### Response\n\nUpon successful authentication, the server will respond with a JSON object that typically includes:\n\n- **token** (string): The authentication token that should be used for subsequent requests.\n    \n- **message** (string): A message indicating the success of the login attempt.\n    \n\n**Example Response:**\n\n``` json\n{\n  \"token\": \"your_auth_token_here\",\n  \"message\": \"Login successful\"\n}\n\n ```\n\n### Usage Notes\n\n- Ensure that the username and password are correct to avoid authentication failures.\n    \n- The token returned in the response should be stored securely and included in the header of future requests that require authentication.\n    \n- Handle errors appropriately; if login fails, the response may include an error message indicating the reason for failure."
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "User",
+			"item": [
+				{
+					"name": "Article Management",
+					"item": [
+						{
+							"name": "1. Load All Articles",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "token",
+										"value": "{{AppToken}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"size\": 10,\r\n    \"tag\": \"\",\r\n    \"maxBehotTime\": 0,\r\n    \"minBehotTime\": \"2100-08-22T05:30:00.000+00:00\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:51601/article/api/v1/article/load",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "51601",
+									"path": [
+										"article",
+										"api",
+										"v1",
+										"article",
+										"load"
+									]
+								},
+								"description": "## API Endpoint: Load Articles\n\nThis endpoint retrieves a list of articles based on specified parameters. It allows users to paginate through articles and filter them based on certain criteria.\n\n### Request\n\n**Method:** GET  \n**URL:** `http://localhost:51601/article/api/v1/article/load`\n\n#### Request Body\n\nThe request body should be in JSON format with the following parameters:\n\n- **size** (integer): The number of articles to retrieve. This parameter controls the pagination of the results. Example: `10`\n    \n- **tag** (string): A tag to filter articles. This parameter can be used to narrow down the articles based on specific topics. Example: `\"\"` (an empty string indicates no filtering by tag)\n    \n- **maxBehotTime** (integer): The maximum timestamp for filtering articles. Articles published before this timestamp will be excluded from the results. Example: `0`\n    \n- **minBehotTime** (integer): The minimum timestamp for filtering articles. Articles published after this timestamp will be included in the results. Example: `20000000000000`\n    \n\n### Response\n\n**Status Code:** 200  \n**Content-Type:** application/json\n\n#### Response Body\n\nThe response will be in JSON format and will include the following fields:\n\n- **host** (null): The host information (currently not provided).\n    \n- **code** (integer): The response code indicating success or failure. A value of `0` indicates a successful request.\n    \n- **message** (string): A message related to the response (currently not provided).\n    \n- **data** (array): An array of article objects, each containing:\n    \n    - **id** (string): Unique identifier for the article.\n        \n    - **title** (string): Title of the article.\n        \n    - **authorId** (integer): Identifier for the author of the article.\n        \n    - **authorName** (string): Name of the author.\n        \n    - **channelId** (integer): Identifier for the channel the article belongs to.\n        \n    - **channelName** (string): Name of the channel.\n        \n    - **layout** (integer): Layout type of the article.\n        \n    - **flag** (null): Additional flags (currently not provided).\n        \n    - **images** (null): Associated images (currently not provided).\n        \n    - **labels** (string): Labels associated with the article.\n        \n    - **likes** (integer): Number of likes the article has received.\n        \n    - **collection** (integer): Number of times the article has been collected.\n        \n    - **comment** (integer): Number of comments on the article.\n        \n    - **views** (integer): Number of views the article has received.\n        \n    - **createdTime** (integer): Timestamp of when the article was created.\n        \n    - **publishTime** (integer): Timestamp of when the article was published.\n        \n    - **syncStatus** (boolean): Indicates if the article is synchronized.\n        \n    - **origin** (boolean): Indicates if the article is of original content.\n        \n    - **staticUrl** (string): Static URL for the article.\n        \n\nThis endpoint is useful for retrieving paginated articles with optional filtering based on timestamps and tags."
+							},
+							"response": []
+						},
+						{
+							"name": "2. Load More Articles",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "token",
+										"value": "{{AppToken}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"size\": 10,\r\n    \"tag\": \"\",\r\n    \"maxBehotTime\": 1755840600000, //timestamp\r\n    \"minBehotTime\": 1755840214000\r\n\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:51601/article/api/v1/article/loadmore",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "51601",
+									"path": [
+										"article",
+										"api",
+										"v1",
+										"article",
+										"loadmore"
+									]
+								},
+								"description": "\n### Load More Articles\n\nThis endpoint retrieves additional articles based on specified parameters. It is particularly useful for paginating through a list of articles.\n\n#### Request Parameters\n\n- **size** (integer): Specifies the number of articles to load in the response. In the last request, this was set to `10`.\n- **tag** (string): A filter for articles based on tags. In the last request, this was left empty, indicating no specific tag filter was applied.\n- **maxBehotTime** (long): The maximum timestamp for articles to be fetched. This parameter helps in controlling the range of articles based on their publication time. The last request used a value of `1755840600000`.\n- **minBehotTime** (long): The minimum timestamp for articles to be fetched. Similar to `maxBehotTime`, it defines the lower limit of the publication time range. The last request had a value of `1755840214000`.\n\n#### Expected Response\n\n- **Status**: `200 OK` indicates that the request was successful.\n- **Content-Type**: `application/json` specifies the format of the response.\n- **Response Body**:\n  - **host**: Information about the host (currently null).\n  - **code**: A status code indicating the result of the request (0 indicates success).\n  - **message**: A message providing additional information (empty in this case).\n  - **data**: An array containing the articles fetched. In the last response, this was empty, indicating no articles were returned for the specified parameters.\n\n#### Notes\n- Ensure that the `maxBehotTime` and `minBehotTime` parameters are set correctly to retrieve the desired articles.\n- If no articles are returned, consider adjusting the `tag` or the time parameters to broaden the search.\n"
+							},
+							"response": []
+						},
+						{
+							"name": "3. Load New Articles",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "token",
+										"value": "{{AppToken}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"size\": 10,\r\n    \"tag\": \"\",\r\n    \"maxBehotTime\": 1755840600000, //timestamp\r\n    \"minBehotTime\": 1755840214000\r\n\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:51601/article/api/v1/article/loadnew",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "51601",
+									"path": [
+										"article",
+										"api",
+										"v1",
+										"article",
+										"loadnew"
+									]
+								},
+								"description": "## Load New Articles\n\nThis endpoint retrieves a list of new articles based on specified parameters. It allows clients to fetch articles by defining the size of the response and time constraints.\n\n### Request Format\n\n**Method:** `GET`  \n**URL:** `http://localhost:51601/article/api/v1/article/loadnew`\n\n#### Request Body\n\nThe request body should be formatted as a JSON object with the following parameters:\n\n- **size** (integer): The number of articles to retrieve. For example, `10` indicates that up to 10 articles should be returned.\n    \n- **tag** (string): A tag to filter articles. An empty string indicates no specific tag is applied.\n    \n- **maxBehotTime** (integer): The maximum timestamp for article retrieval, used to filter articles that were created before this time.\n    \n- **minBehotTime** (integer): The minimum timestamp for article retrieval, used to filter articles that were created after this time.\n    \n\nExample of a valid request body:\n\n``` json\n{\n  \"size\": 10,\n  \"tag\": \"\",\n  \"maxBehotTime\": 1755840600000,\n  \"minBehotTime\": 1755840214000\n}\n\n ```\n\n### Response Format\n\nUpon a successful request, the server will respond with a status code of `200` and a JSON object containing the following fields:\n\n- **host** (null): Currently not utilized.\n    \n- **code** (integer): A status code indicating the result of the request. A value of `0` typically indicates success.\n    \n- **message** (string): A message providing additional context about the response. An empty string indicates no additional information.\n    \n- **data** (array): An array containing the articles retrieved. In this case, it may be empty if no articles match the criteria.\n    \n\nExample of a successful response:\n\n``` json\n{\n  \"host\": null,\n  \"code\": 0,\n  \"message\": \"\",\n  \"data\": []\n}\n\n ```"
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Behavior Management",
+					"item": [
+						{
+							"name": "1. Like Article",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "token",
+										"value": "{{AppToken}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"articleId\": 1958761974842392577,\r\n\t\"operation\": 0, // 0 = Like, 1 = Cancel Like\r\n\t\"type\": 0\r\n\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:51601/behavior/api/v1/likes_behavior",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "51601",
+									"path": [
+										"behavior",
+										"api",
+										"v1",
+										"likes_behavior"
+									]
+								},
+								"description": "# Add Likes Behavior\n\nThis endpoint allows users to register a like behavior for a specific article. It is designed to capture user interactions with articles by sending a like operation, which can be useful for tracking engagement metrics.\n\n## Request\n\n### Method\n\n`POST`\n\n### URL\n\n`http://localhost:51601/behavior/api/v1/likes_behavior`\n\n### Headers\n\n- `Content-Type: application/json` - This header indicates that the request body is formatted as JSON.\n    \n\n### Request Body\n\nThe request body must be a JSON object containing the following parameters:\n\n- **articleId** (integer): The unique identifier of the article that the user is liking.\n    \n- **operation** (integer): The operation to perform. A value of `0` typically indicates a \"like\" action.\n    \n- **type** (integer): The type of like action. A value of `0` is used for standard likes.\n    \n\n#### Example Request Body\n\n``` json\n{\n  \"articleId\": 1958761974842392600,\n  \"operation\": 0,\n  \"type\": 0\n}\n\n ```\n\n## Response\n\n### Status Code\n\n- `200 OK`: Indicates that the request was successful.\n    \n\n### Response Body\n\nThe response is a JSON object with the following structure:\n\n- **host** (string or null): The host information, which may not be applicable in all cases.\n    \n- **code** (integer): A status code indicating the result of the operation. A value of `0` typically indicates success.\n    \n- **message** (string): A message providing additional information about the operation. This may be empty.\n    \n- **data** (string): Additional data related to the request, which may also be empty.\n    \n\n#### Example Response\n\n``` json\n{\n  \"host\": null,\n  \"code\": 0,\n  \"message\": \"\",\n  \"data\": \"\"\n}\n\n ```\n\nThis endpoint is essential for applications that require user interaction tracking and engagement analysis through likes on articles."
+							},
+							"response": []
+						},
+						{
+							"name": "2. Dislike Article",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "token",
+										"value": "{{AppToken}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n\t\"articleId\": 1958761974842392577,\r\n\t\"type\": 0 // 0 = Unlike, 1 = Cancel Unlike\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:51601/behavior/api/v1/un_likes_behavior",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "51601",
+									"path": [
+										"behavior",
+										"api",
+										"v1",
+										"un_likes_behavior"
+									]
+								},
+								"description": "# Unlikes Behavior API\n\nThis endpoint allows users to remove their \"like\" from a specific article. By sending a POST request to this endpoint, you can indicate that you no longer wish to express a positive sentiment towards the specified article.\n\n## Request\n\n### URL\n\n`http://localhost:51601/behavior/api/v1/un_likes_behavior`\n\n### Method\n\n`POST`\n\n### Request Body\n\nThe request body must be in JSON format and include the following parameters:\n\n- **articleId** (number, required): The unique identifier of the article from which the user wants to remove their like.\n    \n- **type** (number, required): A numerical value representing the type of action being performed. For unliking behavior, this is typically set to `0`.\n    \n\n#### Example Request\n\n``` json\n{\n  \"articleId\": 1958761974842392600,\n  \"type\": 0\n}\n\n ```\n\n## Response\n\n### Status Code\n\n`200 OK`\n\n### Response Body\n\nThe response will be in JSON format and will contain the following fields:\n\n- **host** (null or string): The host information, which may not always be present.\n    \n- **code** (number): A status code indicating the result of the operation. A value of `0` typically indicates success.\n    \n- **message** (string): A message providing additional context about the response. This may be empty.\n    \n- **data** (string): Additional data related to the request, which may also be empty.\n    \n\n#### Example Response\n\n``` json\n{\n  \"host\": null,\n  \"code\": 0,\n  \"message\": \"\",\n  \"data\": \"\"\n}\n\n ```\n\nThis API is useful for managing user interactions with articles, specifically allowing users to retract their likes when desired."
+							},
+							"response": []
+						},
+						{
+							"name": "3. View for Article",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "token",
+										"value": "{{AppToken}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n\t\"articleId\": 1958761974842392577,\r\n\t\"count\": 1\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:51601/behavior/api/v1/read_behavior",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "51601",
+									"path": [
+										"behavior",
+										"api",
+										"v1",
+										"read_behavior"
+									]
+								},
+								"description": "## Read Behavior API\n\nThis endpoint allows the client to retrieve behavior data associated with a specific article based on its unique identifier. It is primarily used to track and analyze user interactions with articles.\n\n### Request\n\n- **Method**: POST\n    \n- **URL**: `http://localhost:51601/behavior/api/v1/read_behavior`\n    \n- **Content-Type**: application/json\n    \n\n#### Request Body Parameters\n\nThe request body must be a JSON object containing the following parameters:\n\n- **articleId** (integer): The unique identifier for the article whose behavior data is being requested. This is a required parameter.\n    \n- **count** (integer): The number of behavior records to retrieve. This is also a required parameter.\n    \n\n**Example Request Body**:\n\n``` json\n{\n  \"articleId\": 1958761974842392600,\n  \"count\": 1\n}\n\n ```\n\n### Response\n\nUpon successful execution, the API will return a JSON response with the following structure:\n\n- **Status**: 200 (indicating the request was successful)\n    \n- **Content-Type**: application/json\n    \n\n#### Response Fields\n\n- **host** (string or null): The host information related to the request, if applicable.\n    \n- **code** (integer): A numeric code indicating the outcome of the request. A value of `0` typically indicates success.\n    \n- **message** (string): A message providing additional information about the request outcome. This may be empty in case of success.\n    \n- **data** (string): The main content of the response, which may include the requested behavior data or be empty if no data is found.\n    \n\n**Example Response**:\n\n``` json\n{\n  \"host\": null,\n  \"code\": 0,\n  \"message\": \"\",\n  \"data\": \"\"\n}\n\n ```\n\n### Summary\n\nThis API is essential for fetching behavior analytics related to specific articles, helping in understanding user engagement and interaction patterns."
+							},
+							"response": []
+						},
+						{
+							"name": "4. Follow / UnFollow Author",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "token",
+										"value": "{{AppToken}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n\t\"authorId\": 1102,\r\n\t\"articleId\": 1958761974842392577,\r\n\t\"operation\": 0  \r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:51601/user/api/v1/user/user_follow",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "51601",
+									"path": [
+										"user",
+										"api",
+										"v1",
+										"user",
+										"user_follow"
+									]
+								},
+								"description": "## User Follow API\n\nThis endpoint allows users to follow a specific article by sending a follow request. The operation is identified by the `operation` parameter, which determines the action to be taken (e.g., follow or unfollow).\n\n### Request\n\n- **Method**: POST\n    \n- **URL**: `http://localhost:51601/user/api/v1/user/user_follow`\n    \n- **Content-Type**: application/json\n    \n\n#### Request Body\n\nThe request body must be in JSON format and include the following parameters:\n\n| Parameter | Type | Description |\n| --- | --- | --- |\n| `authorId` | number | The unique identifier of the author of the article being followed. |\n| `articleId` | number | The unique identifier of the article to be followed. |\n| `operation` | number | Indicates the operation type. Use `0` to follow and `1` to unfollow. |\n\n**Example Request Body**:\n\n``` json\n{\n  \"authorId\": 1102,\n  \"articleId\": 1958761974842392600,\n  \"operation\": 0\n}\n\n ```\n\n### Response\n\nThe response will be returned in JSON format and will contain the following structure:\n\n| Field | Type | Description |\n| --- | --- | --- |\n| `host` | null | The host information (currently null). |\n| `code` | number | Status code of the operation (0 indicates success). |\n| `message` | string | A message providing additional information (if any). |\n| `data` | string | Additional data related to the operation (currently empty). |\n\n**Example Response**:\n\n``` json\n{\n  \"host\": null,\n  \"code\": 0,\n  \"message\": \"\",\n  \"data\": \"\"\n}\n\n ```\n\n### Notes\n\n- Ensure that the request is authenticated if required by your API setup.\n    \n- Any necessary headers (like Authorization) should be included as per your API specifications."
+							},
+							"response": []
+						},
+						{
+							"name": "5. Collect Article",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "token",
+										"value": "{{AppToken}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n\t\"entryId\": 1958761974842392577,  //article ID\r\n\t\"operation\": 0,  //0 = Collect, 1 = Cancel Collect \r\n\t\"publishedTime\": 1755840600000, // Date passed from the frontend\r\n\t\"type\": 0\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:51601/article/api/v1/collection_behavior",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "51601",
+									"path": [
+										"article",
+										"api",
+										"v1",
+										"collection_behavior"
+									]
+								},
+								"description": "### Endpoint Description\n\nThis endpoint is used to manage collection behavior for articles. It allows the client to submit an operation related to a specific article entry.\n\n### Request Parameters\n\nThe request body must be in JSON format and should contain the following parameters:\n\n- **entryId** (number): The unique identifier for the article entry that the operation will be applied to.\n    \n- **operation** (number): An integer representing the type of operation to perform on the article entry.\n    \n- **publishedTime** (number): A timestamp indicating when the article was published.\n    \n- **type** (number): An integer representing the type of the article or operation.\n    \n\n### Response Structure\n\nUpon a successful request, the API will return a JSON response with the following structure:\n\n- **host** (null): This field is currently not used and will return null.\n    \n- **code** (number): A status code indicating the result of the operation. A code of `0` typically indicates success.\n    \n- **message** (string): A message providing additional information about the operation. This may be empty.\n    \n- **data** (string): This field may contain additional data related to the operation, but it is currently returned as an empty string.\n    \n\n### Example\n\n#### Request\n\n``` json\n{\n  \"entryId\": 1958761974842392600,\n  \"operation\": 0,\n  \"publishedTime\": 1755840600000,\n  \"type\": 0\n}\n\n ```\n\n#### Response\n\n``` json\n{\n  \"host\": null,\n  \"code\": 0,\n  \"message\": \"\",\n  \"data\": \"\"\n}\n\n ```"
+							},
+							"response": []
+						},
+						{
+							"name": "6. Load Article Behavior Details",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "token",
+										"value": "{{AppToken}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"articleId\": 1958761974842392577,\r\n    \"authorId\": 1102\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:51601/article/api/v1/article/load_article_behavior",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "51601",
+									"path": [
+										"article",
+										"api",
+										"v1",
+										"article",
+										"load_article_behavior"
+									]
+								},
+								"description": "\n## Load Article Behavior\n\nThis endpoint retrieves the behavior status of a specific article based on the provided article ID and author ID. It is useful for determining user interactions with the article, such as whether the article is liked, unliked, collected, or followed.\n\n### Request\n\n- **Method**: GET\n- **URL**: `http://localhost:51601/article/api/v1/article/load_article_behavior`\n\n#### Request Body\nThe request body should be formatted as JSON and include the following parameters:\n\n- **articleId** (number): The unique identifier of the article for which the behavior is being queried.\n- **authorId** (number): The unique identifier of the author of the article.\n\n**Example Request Body:**\n```json\n{\n  \"articleId\": 1958761974842392600,\n  \"authorId\": 1102\n}\n```\n\n### Response\n\nOn a successful request, the server responds with a status code of `200` and a JSON object containing the behavior data. The structure of the response is as follows:\n\n- **code** (number): A status code indicating the result of the request (0 indicates success).\n- **message** (string): A message providing additional information about the request (empty string if no additional information is provided).\n- **data** (object): An object containing the following boolean properties:\n  - **islike** (boolean): Indicates if the article is liked by the user.\n  - **isunlike** (boolean): Indicates if the article is unliked by the user.\n  - **iscollection** (boolean): Indicates if the article is collected by the user.\n  - **isfollow** (boolean): Indicates if the user is following the article.\n\n**Example Response:**\n```json\n{\n  \"host\": null,\n  \"code\": 0,\n  \"message\": \"\",\n  \"data\": {\n    \"islike\": true,\n    \"isunlike\": true,\n    \"iscollection\": true,\n    \"isfollow\": true\n  }\n}\n```\n\n### Important Notes\n- Ensure that any required authentication headers are included in the request if applicable.\n- The request should be sent with the appropriate `Content-Type` header set to `application/json` to indicate the format of the request body.\n"
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Comment Management",
+					"item": [
+						{
+							"name": "Article Comment",
+							"item": [
+								{
+									"name": "1. Save Comment",
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "token",
+												"value": "{{AppToken}}",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n\t\"articleId\": 1958761974842392577,\r\n\t\"content\": \"Hello\"\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "http://localhost:51601/comment/api/v1/comment/save",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "51601",
+											"path": [
+												"comment",
+												"api",
+												"v1",
+												"comment",
+												"save"
+											]
+										},
+										"description": "## Save Comment API\n\nThis endpoint allows users to submit a comment related to a specific article.\n\n### HTTP Method\n\n`POST`\n\n### Endpoint\n\n`http://localhost:51601/comment/api/v1/comment/save`\n\n### Request Parameters\n\nThe request body must be in JSON format and include the following parameters:\n\n- **articleId** (number): The unique identifier of the article to which the comment is being added.\n    \n- **content** (string): The text content of the comment.\n    \n\n#### Example Request Body\n\n``` json\n{\n  \"articleId\": 1958761974842392600,\n  \"content\": \"Hello\"\n}\n\n ```\n\n### Expected Response\n\nOn a successful request, the API will return a response with the following structure:\n\n- **Status**: `200 OK`\n    \n- **Content-Type**: `application/json`\n    \n- **Response Body**:\n    \n    - **host** (null): The host information, which may not be applicable.\n        \n    - **code** (number): A status code indicating the result of the operation (0 for success).\n        \n    - **message** (string): A message providing additional context (empty in successful responses).\n        \n    - **data** (string): Additional data related to the response (empty in successful responses).\n        \n\nThis API is designed to facilitate the addition of comments to articles, ensuring that users can engage with the content effectively."
+									},
+									"response": []
+								},
+								{
+									"name": "2. Load Article Comment",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "token",
+												"value": "{{AppToken}}",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"articleId\": 1958761974842392577,\r\n    \"index\": 1,\r\n    \"minDate\": 20000000000000 // Send by FrontEnd\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "http://localhost:51601/comment/api/v1/comment/load",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "51601",
+											"path": [
+												"comment",
+												"api",
+												"v1",
+												"comment",
+												"load"
+											]
+										},
+										"description": "## Load Comments\n\nThis endpoint is used to load comments associated with a specific article. It retrieves a list of comments based on the provided parameters, allowing users to paginate through comments and filter them by creation date.\n\n### Request\n\n**Method:** GET  \n**URL:** `http://localhost:51601/comment/api/v1/comment/load`\n\n#### Request Body Parameters\n\n- **articleId** (integer, required): The unique identifier of the article for which comments are being loaded. This parameter is essential for fetching the relevant comments.\n    \n- **index** (integer, required): The index for pagination, indicating which set of comments to retrieve. This allows users to navigate through large sets of comments efficiently.\n    \n- **minDate** (integer, optional): A timestamp used to filter comments that were created after this date. This parameter helps in retrieving only those comments that are relevant to a specific timeframe.\n    \n\n### Response\n\n**Status Code:** 200  \n**Content-Type:** application/json\n\n#### Response Structure\n\nThe response will contain the following fields:\n\n- **host** (string or null): The host information, if applicable.\n    \n- **code** (integer): The status code of the response, indicating the success or failure of the request.\n    \n- **message** (string): A message providing additional context about the response, which may be empty in successful cases.\n    \n- **data** (array): An array of comment objects, each containing:\n    \n    - **id** (string): The unique identifier of the comment.\n        \n    - **authorId** (integer): The identifier of the author who made the comment.\n        \n    - **authorName** (string): The name of the author.\n        \n    - **entryId** (integer): The identifier for the entry associated with the comment.\n        \n    - **channelId** (string or null): The channel identifier, if applicable.\n        \n    - **type** (integer): The type of the comment.\n        \n    - **content** (string): The text content of the comment.\n        \n    - **image** (string or null): A URL to an image associated with the comment, if any.\n        \n    - **likes** (integer): The number of likes the comment has received.\n        \n    - **reply** (integer): The number of replies to the comment.\n        \n    - **flag** (integer): A flag indicating the status of the comment.\n        \n    - **ord** (integer or null): The order of the comment in the list.\n        \n    - **createdTime** (integer): The timestamp when the comment was created.\n        \n    - **updatedTime** (integer or null): The timestamp when the comment was last updated.\n        \n    - **status** (string or null): The current status of the comment.\n        \n    - **operation** (string or null): Any operation associated with the comment.\n        \n\n### Notes\n\n- Ensure that the `articleId` is valid to retrieve the corresponding comments.\n    \n- Use the `index` parameter for pagination to manage large sets of comments effectively.\n    \n- The `minDate` can be utilized to limit the results to comments created after a specific point in time."
+									},
+									"response": []
+								},
+								{
+									"name": "3. Like Comment",
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "token",
+												"value": "{{AppToken}}",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n\t\"commentId\": \"68a8030a5f7be6478a7a5ff2\",\r\n\t\"operation\": 0 // 0 = Like, 1 = Cancel Like\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "http://localhost:51601/comment/api/v1/comment/like",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "51601",
+											"path": [
+												"comment",
+												"api",
+												"v1",
+												"comment",
+												"like"
+											]
+										},
+										"description": "### Like a Comment\n\nThis endpoint allows users to like or unlike a specific comment by providing the comment ID and the desired operation.\n\n#### Request\n\n- **Method**: POST\n    \n- **URL**: `http://localhost:51601/comment/api/v1/comment/like`\n    \n\n#### Request Body\n\nThe request body must be in JSON format and include the following parameters:\n\n- **commentId** (string): The unique identifier of the comment that you want to like or unlike.\n    \n- **operation** (integer): The operation to perform. Use `0` to unlike a comment or `1` to like a comment.\n    \n\n**Example Request Body:**\n\n``` json\n{\n  \"commentId\": \"68a8030a5f7be6478a7a5ff2\",\n  \"operation\": 0\n}\n\n ```\n\n#### Response\n\nUpon a successful request, the API will return a JSON response with the following structure:\n\n- **code** (integer): A status code indicating the result of the operation.\n    \n- **message** (string): A message providing additional details about the operation (if applicable).\n    \n- **data** (object): Contains the result of the like operation.\n    \n    - **likes** (integer): The total number of likes for the comment after the operation.\n        \n\n**Example Response:**\n\n``` json\n{\n  \"host\": null,\n  \"code\": 0,\n  \"message\": \"\",\n  \"data\": {\n    \"likes\": 0\n  }\n}\n\n ```\n\n#### Notes\n\n- Ensure that the `commentId` provided corresponds to an existing comment.\n    \n- The `operation` parameter dictates whether you are liking or unliking the comment, and it must be set appropriately.\n    \n- A successful response will have a status code of `200`, indicating that the operation was completed successfully."
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "Reply Comment",
+							"item": [
+								{
+									"name": "1. Save Reply of Comment",
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "token",
+												"value": "{{AppToken}}",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n\t\"commentId\": \"68a8030a5f7be6478a7a5ff2\",\r\n\t\"content\": \"Goooooood!\"\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "http://localhost:51601/comment/api/v1/comment_reply/save",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "51601",
+											"path": [
+												"comment",
+												"api",
+												"v1",
+												"comment_reply",
+												"save"
+											]
+										},
+										"description": "## Endpoint: Save Comment Reply\n\nThis endpoint allows users to submit a reply to an existing comment. It is useful for enhancing user interaction by enabling discussions around specific comments.\n\n### Request\n\n- **Method**: POST\n    \n- **URL**: `http://localhost:51601/comment/api/v1/comment_reply/save`\n    \n\n#### Request Body\n\nThe request body must be in JSON format and should contain the following parameters:\n\n- **commentId** (string): The unique identifier of the comment to which the reply is being made. This is a required field.\n    \n- **content** (string): The text of the reply. This is a required field.\n    \n\n**Example Request Body:**\n\n``` json\n{\n  \"commentId\": \"68a8030a5f7be6478a7a5ff2\",\n  \"content\": \"Goooooood!\"\n}\n\n ```\n\n### Response\n\nThe response from the server will be in JSON format and will include the following fields:\n\n- **host** (null): This field may contain the host information, but it is typically null.\n    \n- **code** (integer): A status code indicating the result of the operation. A value of `0` usually indicates success.\n    \n- **message** (string): A message providing additional information about the operation. This may be empty.\n    \n- **data** (string): This field may contain additional data related to the request, but it is typically empty.\n    \n\n**Example Response:**\n\n``` json\n{\n  \"host\": null,\n  \"code\": 0,\n  \"message\": \"\",\n  \"data\": \"\"\n}\n\n ```\n\n### Notes\n\n- Ensure that the `commentId` corresponds to an existing comment in the system to successfully save the reply.\n    \n- The `content` should be concise and relevant to the comment being replied to."
+									},
+									"response": []
+								},
+								{
+									"name": "2. Load Reply of Comment",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "token",
+												"value": "{{AppToken}}",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"commentId\": \"68a8030a5f7be6478a7a5ff2\",\r\n    \"size\": 1,\r\n    \"minDate\": 20000000000000 // Send by FrontEnd\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "http://localhost:51601/comment/api/v1/comment_reply/load",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "51601",
+											"path": [
+												"comment",
+												"api",
+												"v1",
+												"comment_reply",
+												"load"
+											]
+										},
+										"description": "### Endpoint Description\n\nThis endpoint retrieves replies to a specific comment based on the provided parameters. It allows clients to load comment replies efficiently.\n\n### Request Parameters\n\nThe request is made using the HTTP GET method and requires the following parameters in the request body:\n\n- **commentId** (string): The unique identifier of the comment for which replies are being requested.\n    \n- **size** (integer): The number of replies to return in the response.\n    \n- **minDate** (integer): A timestamp used to filter replies that were created after this date.\n    \n\n### Response Structure\n\nUpon a successful request, the server responds with a status code of 200 and a JSON object containing the following fields:\n\n- **host** (null): The host information, which may not be applicable in this context.\n    \n- **code** (integer): A status code indicating the result of the request (0 indicates success).\n    \n- **message** (string): A message providing additional context about the response (empty in this case).\n    \n- **data** (array): An array of reply objects, each containing:\n    \n    - **id** (string): The unique identifier of the reply.\n        \n    - **authorId** (integer): The unique identifier of the author of the reply.\n        \n    - **authorName** (string): The name of the author of the reply.\n        \n    - **commentId** (string): The identifier of the comment to which this reply belongs.\n        \n    - **content** (string): The content of the reply.\n        \n    - **likes** (integer): The number of likes the reply has received.\n        \n    - **createdTime** (integer): The timestamp when the reply was created.\n        \n    - **updatedTime** (integer): The timestamp when the reply was last updated.\n        \n    - **operation** (null): This field may represent any operation related to the reply, but is null in this case.\n        \n\n### Example Request\n\n``` json\n{\n  \"commentId\": \"68a8030a5f7be6478a7a5ff2\",\n  \"size\": 1,\n  \"minDate\": 20000000000000\n}\n\n ```\n\n### Example Response\n\n``` json\n{\n  \"host\": null,\n  \"code\": 0,\n  \"message\": \"\",\n  \"data\": [\n    {\n      \"id\": \"\",\n      \"authorId\": 0,\n      \"authorName\": \"\",\n      \"commentId\": \"\",\n      \"content\": \"\",\n      \"likes\": 0,\n      \"createdTime\": 0,\n      \"updatedTime\": 0,\n      \"operation\": null\n    }\n  ]\n}\n\n ```"
+									},
+									"response": []
+								},
+								{
+									"name": "3. Like Reply of Comment",
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "token",
+												"value": "{{AppToken}}",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n\t\"commentReplyId\": \"68a8032a5f7be6478a7a5ff4\",\r\n\t\"operation\": 0 // 0 = Like, 1 = Cancel Like\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "http://localhost:51601/comment/api/v1/comment_reply/like",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "51601",
+											"path": [
+												"comment",
+												"api",
+												"v1",
+												"comment_reply",
+												"like"
+											]
+										},
+										"description": "## Endpoint Description\n\nThis endpoint allows users to like or unlike a specific comment reply. By sending a POST request to the specified URL, users can update the like status of a comment reply identified by its unique ID.\n\n### Request\n\n- **URL**: `http://localhost:51601/comment/api/v1/comment_reply/like`\n    \n- **Method**: POST\n    \n- **Content-Type**: application/json\n    \n\n#### Request Body Parameters\n\nThe request body must be a JSON object containing the following parameters:\n\n- `commentReplyId` (string): The unique identifier of the comment reply that is being liked or unliked.\n    \n- `operation` (integer): The operation to perform. Typically, `0` indicates an unlike operation, and `1` indicates a like operation.\n    \n\n**Example Request Body:**\n\n``` json\n{\n  \"commentReplyId\": \"68a8032a5f7be6478a7a5ff4\",\n  \"operation\": 0\n}\n\n ```\n\n### Response\n\nUpon a successful request, the API responds with a JSON object containing the following fields:\n\n- `host`: The host information (may be null).\n    \n- `code`: The status code of the operation (0 indicates success).\n    \n- `message`: A message providing additional information about the operation (may be empty).\n    \n- `data`: An object containing:\n    \n    - `likes`: The total number of likes for the comment reply after the operation.\n        \n\n**Example Response:**\n\n``` json\n{\n  \"host\": null,\n  \"code\": 0,\n  \"message\": \"\",\n  \"data\": {\n    \"likes\": 0\n  }\n}\n\n ```\n\n### Usage Notes\n\n- Ensure that the `commentReplyId` provided in the request corresponds to an existing comment reply.\n    \n- The `operation` parameter determines whether to like or unlike the comment reply. Adjust this value accordingly to achieve the desired effect.\n    \n- A successful response indicates that the operation was completed without errors, and the `likes` value will reflect the current total likes for the comment reply."
+									},
+									"response": []
+								}
+							]
+						}
+					]
+				},
+				{
+					"name": "Search Management",
+					"item": [
+						{
+							"name": "1. Search Article",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "token",
+										"value": "{{AppToken}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"searchWords\": \"原神\",\r\n    \"pageNum\": 1,\r\n    \"pageSize\": 10,\r\n    \"minBehotTime\": 20000000000000 // Send by FrontEnd\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:51601/search/api/v1/article/search",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "51601",
+									"path": [
+										"search",
+										"api",
+										"v1",
+										"article",
+										"search"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "2. Get Search History",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "token",
+										"value": "{{AppToken}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"commentId\": \"68a8030a5f7be6478a7a5ff2\",\r\n    \"size\": 1,\r\n    \"minDate\": \"2100-08-22T05:30:00.000+00:00\" // Send by FrontEnd\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:51601/search/api/v1/history/load",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "51601",
+									"path": [
+										"search",
+										"api",
+										"v1",
+										"history",
+										"load"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "3. Delete Search History",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "token",
+										"value": "{{AppToken}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"id\": \"60bcfb0646ed51407504f137\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:51601/search/api/v1/history/del",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "51601",
+									"path": [
+										"search",
+										"api",
+										"v1",
+										"history",
+										"del"
+									]
+								},
+								"description": "### Endpoint Description\n\nThis endpoint is used to delete a specific history record from the system based on a unique identifier. The deletion is performed by sending a POST request to the specified URL.\n\n### Request\n\n- **Method:** POST\n    \n- **URL:** `http://localhost:51601/search/api/v1/history/del`\n    \n\n#### Request Body\n\nThe request body must be in JSON format and should contain the following parameter:\n\n- **id** (string): The unique identifier of the history record that you wish to delete.\n    \n\n**Example:**\n\n``` json\n{\n  \"id\": \"60bcfb0646ed51407504f137\"\n}\n\n ```\n\n### Response\n\nUpon successful execution of the request, the server responds with a JSON object that contains the following fields:\n\n- **host** (null): This field may return null, indicating that no specific host information is provided.\n    \n- **code** (integer): This is a status code indicating the result of the operation. A code of `0` typically signifies success.\n    \n- **message** (string): A message field that may provide additional information about the operation. In this case, it is an empty string, indicating no additional information.\n    \n- **data** (string): This field may return additional data related to the operation. In this case, it is also an empty string.\n    \n\n**Example Response:**\n\n``` json\n{\n  \"host\": null,\n  \"code\": 0,\n  \"message\": \"\",\n  \"data\": \"\"\n}\n\n ```\n\n### Summary\n\nThis API endpoint allows users to delete a history record by providing the specific `id` of the record. The response will confirm the operation's success with a status code and may include other metadata."
+							},
+							"response": []
+						},
+						{
+							"name": "4. Get Search Associated Words",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "token",
+										"value": "{{AppToken}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"searchWords\": \"黑\",\r\n    \"pageNum\": 1,\r\n    \"pageSize\": 10,\r\n    \"minDate\": \"2100-08-22T05:30:00.000+00:00\" // Send by FrontEnd\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:51601/search/api/v1/associate/search",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "51601",
+									"path": [
+										"search",
+										"api",
+										"v1",
+										"associate",
+										"search"
+									]
+								},
+								"description": "# Associate Search API\n\nThe Associate Search API allows users to search for associates based on specific keywords and pagination parameters. This endpoint is particularly useful for retrieving a list of associates that match the provided search criteria.\n\n## Request\n\n### Endpoint\n\n```\nPOST http://localhost:51601/search/api/v1/associate/search\n\n ```\n\n### Request Body\n\nThe request should be sent in JSON format with the following parameters:\n\n- **searchWords** (string): A keyword or phrase to search for associates. This parameter is essential for filtering results based on user input.\n    \n- **pageNum** (integer): The page number for pagination. This allows users to navigate through multiple pages of results.\n    \n- **pageSize** (integer): The number of results to return per page. This helps in controlling the amount of data returned in a single request.\n    \n- **minDate** (string, ISO 8601 format): The minimum date for filtering results based on the creation time of the associates. This parameter helps in narrowing down results to a specific time frame.\n    \n\n### Example Request Body\n\n``` json\n{\n  \"searchWords\": \"黑\",\n  \"pageNum\": 1,\n  \"pageSize\": 10,\n  \"minDate\": \"2100-08-22T05:30:00.000+00:00\"\n}\n\n ```\n\n## Response\n\n### Status Code\n\n- **200 OK**: Indicates that the request was successful.\n    \n\n### Response Body\n\nThe response is returned in JSON format and contains the following structure:\n\n- **host** (null): Currently not utilized in the response.\n    \n- **code** (integer): A status code indicating the result of the search operation. A value of `0` typically indicates success.\n    \n- **message** (string): A message providing additional context about the response. This may be empty if there are no issues.\n    \n- **data** (array): An array of associate objects that match the search criteria. Each object in the array contains:\n    \n    - **id** (string): The unique identifier for the associate.\n        \n    - **associateWords** (string): The words associated with the associate.\n        \n    - **createdTime** (string): The timestamp indicating when the associate was created.\n        \n\n### Example Response Body\n\n``` json\n{\n  \"host\": null,\n  \"code\": 0,\n  \"message\": \"\",\n  \"data\": [\n    {\n      \"id\": \"\",\n      \"associateWords\": \"\",\n      \"createdTime\": \"\"\n    }\n  ]\n}\n\n ```\n\n## Usage Notes\n\n- Ensure that the `searchWords` parameter is relevant to the associates you are looking for.\n    \n- Adjust the `pageNum` and `pageSize` parameters to manage the volume of data returned.\n    \n- The `minDate` parameter should be formatted correctly to avoid errors in filtering results.\n    \n- Review the `code` and `message` fields in the response to understand the result of your search query.\n    \n\nThis API endpoint is designed to facilitate efficient searching and retrieval of associate data based on user-defined criteria."
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "User Management",
+					"item": [
+						{
+							"name": "Common - Upload Image",
+							"item": [
+								{
+									"name": "Upload Image",
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "token",
+												"value": "{{AppToken}}",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "formdata",
+											"formdata": [
+												{
+													"key": "file",
+													"type": "file",
+													"src": []
+												}
+											]
+										},
+										"url": {
+											"raw": "http://localhost:51601/user/api/v1/user/common/upload",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "51601",
+											"path": [
+												"user",
+												"api",
+												"v1",
+												"user",
+												"common",
+												"upload"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "1. Add New User",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"name\": \"wen\",\r\n    \"nickname\": \"\",\r\n    \"password\": \"wen123\",\r\n    \"phone\": \"1564894123\",\r\n    \"email\": \"wenhuey0411@gmail.com\",\r\n    \"sex\": null\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:51601/user/api/v1/user/add",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "51601",
+									"path": [
+										"user",
+										"api",
+										"v1",
+										"user",
+										"add"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "2. Get User Details",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "token",
+										"value": "{{AppToken}}",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "http://localhost:51601/user/api/v1/user/get_details",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "51601",
+									"path": [
+										"user",
+										"api",
+										"v1",
+										"user",
+										"get_details"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "3. Get User By ID",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "token",
+										"value": "{{AppToken}}",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "http://localhost:51601/user/api/v1/user/get/1960525930107908098",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "51601",
+									"path": [
+										"user",
+										"api",
+										"v1",
+										"user",
+										"get",
+										"1960525930107908098"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "4. Update User",
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "token",
+										"value": "{{AppToken}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"id\": 1960525930107908098,\r\n    \"nickname\": \"芋泥啵啵\",\r\n    \"password\": \"wh123\",\r\n    \"phone\": \"1234567890\",\r\n    \"email\": \"wenhuey0411@gmail.com\",\r\n    \"sex\": 1,\r\n    \"image\":\"http://192.168.200.130:9000/verivue/2025/08/27/a7c2153be1c448c4b0484de98ce65625.png\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:51601/user/api/v1/user/update",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "51601",
+									"path": [
+										"user",
+										"api",
+										"v1",
+										"user",
+										"update"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Realname Request",
+					"item": [
+						{
+							"name": "1. Realname Request",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "token",
+										"value": "{{AppToken}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"name\": \"Wen Hui\",\r\n    \"idno\": \"1112223334445555\",\r\n    \"type\": 1,\r\n    \"fontImage\": \"http://192.168.200.130:9000/verivue/2025/08/22/396291ff3d6f4b97995bdc44d4d6d2de.png\",\r\n    \"backImage\": \"http://192.168.200.130:9000/verivue/2025/08/22/d6746545d323420489edbf33f0f4118e.png\",\r\n    \"holdImage\": \"http://192.168.200.130:9000/verivue/2025/08/22/24e1a6e9ba694d618d6435a2528a7d1a.png\",\r\n    \"liveImage\": \"http://192.168.200.130:9000/verivue/2025/08/22/24e1a6e9ba694d618d6435a2528a7d1a.png\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:51601/user/api/v1/auth/add",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "51601",
+									"path": [
+										"user",
+										"api",
+										"v1",
+										"auth",
+										"add"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "User Login",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"let res = pm.response.json();\r",
+									"if (res.data && res.data.token) {\r",
+									"    pm.environment.set(\"AppToken\", res.data.token);\r",
+									"    console.log(\"Token Saved:\", res.data.token);\r",
+									"}"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"phone\": \"13511223456\",\r\n    \"password\": \"admin\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:51601/user/api/v1/login/app_login",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "51601",
+							"path": [
+								"user",
+								"api",
+								"v1",
+								"login",
+								"app_login"
+							]
+						},
+						"description": "## Login API Endpoint\n\nThis endpoint allows users to log in to the application using their phone number and password. Upon successful authentication, a token is generated for the user.\n\n### Request\n\n- **Method:** POST\n    \n- **URL:** `http://localhost:51601/user/api/v1/login/app_login`\n    \n- **Content-Type:** application/json\n    \n\n#### Request Body\n\nThe request body must be in JSON format and include the following parameters:\n\n- **phone** (string): The user's phone number.\n    \n- **password** (string): The user's password.\n    \n\n**Example Request Body:**\n\n``` json\n{\n  \"phone\": \"13511223456\",\n  \"password\": \"admin\"\n}\n\n ```\n\n### Response\n\nOn a successful login, the response will return a status code of 200 and a JSON object containing the following fields:\n\n- **host**: The host information (null in this case).\n    \n- **code**: A status code indicating the result of the request (0 for success).\n    \n- **message**: A message providing additional information (empty in this case).\n    \n- **data**: An object containing:\n    \n    - **user**: An object with user details:\n        \n        - **id**: The user's unique identifier.\n            \n        - **salt**: The salt used for password hashing.\n            \n        - **name**: The user's name.\n            \n        - **password**: The user's password (not returned for security reasons).\n            \n        - **phone**: The user's phone number.\n            \n        - **image**: The user's profile image (null if not set).\n            \n        - **sex**: The user's gender.\n            \n        - **certification**: Certification status (null if not applicable).\n            \n        - **identityAuthentication**: Identity authentication status (null if not applicable).\n            \n        - **status**: Indicates if the user account is active.\n            \n        - **flag**: A flag for internal use.\n            \n        - **createdTime**: Timestamp of when the user was created.\n            \n    - **token**: A token string used for session management.\n        \n\n**Example Response Body:**\n\n``` json\n{\n  \"host\": null,\n  \"code\": 0,\n  \"message\": \"\",\n  \"data\": {\n    \"user\": {\n      \"id\": \"\",\n      \"salt\": \"\",\n      \"name\": \"\",\n      \"password\": \"\",\n      \"phone\": \"\",\n      \"image\": null,\n      \"sex\": true,\n      \"certification\": null,\n      \"identityAuthentication\": null,\n      \"status\": true,\n      \"flag\": 0,\n      \"createdTime\": 0\n    },\n    \"token\": \"\"\n  }\n}\n\n ```"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "WeMedia",
+			"item": [
+				{
+					"name": "Channel Management",
+					"item": [
+						{
+							"name": "1. Get All Channels",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "token",
+										"value": "{{WemediaToken}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "http://localhost:51602/wemedia/api/v1/channel/channels",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "51602",
+									"path": [
+										"wemedia",
+										"api",
+										"v1",
+										"channel",
+										"channels"
+									]
+								},
+								"description": "## API Endpoint: Get Channels\n\nThis endpoint retrieves a list of channels from the WeMedia API. It is a read-only operation that allows clients to access channel information, including their identifiers, names, descriptions, and statuses.\n\n### Request\n\n- **Method**: GET\n    \n- **URL**: `http://localhost:51602/wemedia/api/v1/channel/channels`\n    \n\n#### Headers\n\n- **Content-Type**: `application/json` (This header indicates the format of the response data.)\n    \n\n### Response\n\nUpon a successful request, the server responds with a status code of `200` and returns a JSON object structured as follows:\n\n``` json\n{\n  \"host\": null,\n  \"code\": 0,\n  \"message\": \"\",\n  \"data\": [\n    {\n      \"id\": 0,\n      \"name\": \"\",\n      \"description\": \"\",\n      \"isDefault\": true,\n      \"status\": true,\n      \"ord\": 0,\n      \"createdTime\": \"\"\n    }\n  ]\n}\n\n ```\n\n#### Response Fields\n\n- **host**: The host information (currently null).\n    \n- **code**: A numeric code indicating the status of the request (0 typically means success).\n    \n- **message**: A message providing additional context about the request (empty in this case).\n    \n- **data**: An array containing channel objects, each with the following fields:\n    \n    - **id**: Unique identifier for the channel.\n        \n    - **name**: The name of the channel.\n        \n    - **description**: A brief description of the channel.\n        \n    - **isDefault**: A boolean indicating if this channel is the default channel.\n        \n    - **status**: A boolean indicating the active status of the channel.\n        \n    - **ord**: The order of the channel in the list.\n        \n    - **createdTime**: The timestamp when the channel was created.\n        \n\n### Important Notes\n\n- No authentication headers are required for this request.\n    \n- Ensure that the request is made to the correct endpoint to receive the expected data."
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Material Management",
+					"item": [
+						{
+							"name": "1. Get Material List",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "token",
+										"value": "{{WemediaToken}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"isCollection\": 0,\r\n    \"page\": 1,\r\n    \"size\": 10\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:51602/wemedia/api/v1/material/list",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "51602",
+									"path": [
+										"wemedia",
+										"api",
+										"v1",
+										"material",
+										"list"
+									]
+								},
+								"description": "## Endpoint: List Media Materials\n\nThis endpoint retrieves a list of media materials based on the specified pagination and collection status.\n\n### Request\n\n**Method:** GET  \n**URL:** `http://localhost:51602/wemedia/api/v1/material/list`\n\n#### Query Parameters\n\n- **isCollection** (integer, required): A flag indicating whether to filter the results by collection status. A value of `0` indicates that the results should not be filtered by collection.\n    \n- **page** (integer, required): The page number to retrieve. This is used for pagination of the results.\n    \n- **size** (integer, required): The number of items to return per page.\n    \n\n#### Example Request Body\n\n``` json\n{\n  \"isCollection\": 0,\n  \"page\": 1,\n  \"size\": 10\n}\n\n ```\n\n### Response\n\n**Status Code:** 200  \n**Content-Type:** application/json\n\n#### Response Structure\n\n- **host** (string or null): The host information (if applicable).\n    \n- **code** (integer): The response code indicating the status of the request.\n    \n- **message** (string or null): A message providing additional context about the response.\n    \n- **data** (array): An array of media material objects, each containing:\n    \n    - **id** (integer): The unique identifier for the media material.\n        \n    - **userId** (integer): The identifier of the user associated with the media material.\n        \n    - **url** (string): The URL of the media material.\n        \n    - **type** (integer): The type of media material.\n        \n    - **isCollection** (integer): Indicates if the material is part of a collection.\n        \n    - **createdTime** (string): The timestamp when the media material was created.\n        \n- **currentPage** (integer): The current page number of the results.\n    \n- **size** (integer): The number of items returned in the response.\n    \n- **total** (integer): The total number of items available across all pages.\n    \n\n### Notes\n\n- Ensure that the `page` and `size` parameters are set correctly to retrieve the desired subset of results.\n    \n- The `data` array may be empty if there are no media materials matching the specified criteria."
+							},
+							"response": []
+						},
+						{
+							"name": "2. Upload Material",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "token",
+										"value": "{{WemediaToken}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "multipartFile",
+											"type": "file",
+											"src": []
+										}
+									]
+								},
+								"url": {
+									"raw": "http://localhost:51602/wemedia/api/v1/material/upload_picture",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "51602",
+									"path": [
+										"wemedia",
+										"api",
+										"v1",
+										"material",
+										"upload_picture"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "3. Collect Material",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "token",
+										"value": "{{WemediaToken}}",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "http://localhost:51602/wemedia/api/v1/material/collect/16",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "51602",
+									"path": [
+										"wemedia",
+										"api",
+										"v1",
+										"material",
+										"collect",
+										"16"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "4. Cancel Collect",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "token",
+										"value": "{{WemediaToken}}",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "http://localhost:51602/wemedia/api/v1/material/cancel_collect/16",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "51602",
+									"path": [
+										"wemedia",
+										"api",
+										"v1",
+										"material",
+										"cancel_collect",
+										"16"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "5. Delete Material",
+							"request": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "token",
+										"value": "{{WemediaToken}}",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "http://localhost:51602/wemedia/api/v1/material/del_picture/16",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "51602",
+									"path": [
+										"wemedia",
+										"api",
+										"v1",
+										"material",
+										"del_picture",
+										"16"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Article Management",
+					"item": [
+						{
+							"name": "1. Get Article List",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "token",
+										"value": "{{WemediaToken}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"status\":null,\r\n    \"beginPubDate\":\"\",\r\n    \"endPuDate\":\"\",\r\n    \"channelId\":null,\r\n    \"keyword\": \"\", //search words\r\n    \"page\": 1,\r\n    \"size\": 10\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:51602/wemedia/api/v1/news/list",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "51602",
+									"path": [
+										"wemedia",
+										"api",
+										"v1",
+										"news",
+										"list"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "2. Add / Update Articles",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "token",
+										"value": "{{WemediaToken}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"id\": 1959731388383371265,  // If create new article, please null the ID\r\n    \"title\":\"UpdateTest\",\r\n    \"channelId\":1959496186935541800,\r\n    \"labels\":\"PostMan\",\r\n    \"content\":\"[{\\\"type\\\":\\\"text\\\",\\\"value\\\":\\\"This is PostMan Test\\\"},{\\\"type\\\":\\\"image\\\",\\\"value\\\":\\\"http://192.168.200.130:9000/verivue/2025/08/22/660b95e9c51644e29592371d81511175.png\\\"}]\",\r\n    \"type\":\"1\",\r\n    \"image\": \"http://192.168.200.130:9000/verivue/2025/08/22/660b95e9c51644e29592371d81511175.png\",\r\n    \"status\": \"1\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:51602/wemedia/api/v1/news/submit",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "51602",
+									"path": [
+										"wemedia",
+										"api",
+										"v1",
+										"news",
+										"submit"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "3. Get Article Details",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "token",
+										"value": "{{WemediaToken}}",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "http://localhost:51602/wemedia/api/v1/news/one/1958761963270324225",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "51602",
+									"path": [
+										"wemedia",
+										"api",
+										"v1",
+										"news",
+										"one",
+										"1958761963270324225"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "4.  Publish / Unpublish Article",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "token",
+										"value": "{{WemediaToken}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"id\" : 1959731388383371265,\r\n    \"enable\": 0 // 1 = Publish, 0 = Unpublish\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:51602/wemedia/api/v1/news/down_or_up",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "51602",
+									"path": [
+										"wemedia",
+										"api",
+										"v1",
+										"news",
+										"down_or_up"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "5. Delete Article",
+							"request": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "token",
+										"value": "{{WemediaToken}}",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "http://localhost:51602/wemedia/api/v1/news/del_news/1959738951493734401",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "51602",
+									"path": [
+										"wemedia",
+										"api",
+										"v1",
+										"news",
+										"del_news",
+										"1959738951493734401"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Comment Management",
+					"item": [
+						{
+							"name": "1. Get All Article Comment",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "token",
+										"value": "{{WemediaToken}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"beginDate\": \"2025-08-20 00:00:00\",\r\n    \"endDate\": \"2025-08-25 23:59:59\",\r\n    \"wmUserId\": \"1102\",\r\n    \"page\": 1,\r\n    \"size\": 10\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:51602/wemedia/api/v1/comment/manage/find_news_comments",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "51602",
+									"path": [
+										"wemedia",
+										"api",
+										"v1",
+										"comment",
+										"manage",
+										"find_news_comments"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "2. Get Article Comment",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "token",
+										"value": "{{WemediaToken}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"articleId\": 1958761974842392577,\r\n    \"page\": 1,\r\n    \"size\": 10\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:51602/wemedia/api/v1/comment/manage/list",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "51602",
+									"path": [
+										"wemedia",
+										"api",
+										"v1",
+										"comment",
+										"manage",
+										"list"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "3. Set Comment Status",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "token",
+										"value": "{{WemediaToken}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"articleId\": 1958761974842392577,\r\n    \"operation\": 0 // 0 Close comment  1 Open comment\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:51602/wemedia/api/v1/comment/manage/update_comment_status",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "51602",
+									"path": [
+										"wemedia",
+										"api",
+										"v1",
+										"comment",
+										"manage",
+										"update_comment_status"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "4. Reply Comment",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "token",
+										"value": "{{WemediaToken}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"commentId\": \"68aba40474b60c6ec7f7dc20\",\r\n    \"content\": \"How are you?\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:51602/wemedia/api/v1/comment/manage/comment_reply",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "51602",
+									"path": [
+										"wemedia",
+										"api",
+										"v1",
+										"comment",
+										"manage",
+										"comment_reply"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "5. Like Comment",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "token",
+										"value": "{{WemediaToken}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"commentId\": \"68aba40474b60c6ec7f7dc20\",\r\n    \"operation\": 0 // 0 Close comment  1 Open comment\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:51602/wemedia/api/v1/comment/manage/like",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "51602",
+									"path": [
+										"wemedia",
+										"api",
+										"v1",
+										"comment",
+										"manage",
+										"like"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "6. Delete Replied Comment",
+							"request": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "token",
+										"value": "{{WemediaToken}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"articleId\": 1958761974842392577,\r\n    \"operation\": 0 // 0 Close comment  1 Open comment\r\n}"
+								},
+								"url": {
+									"raw": "http://localhost:51602/wemedia/api/v1/comment/manage/del_comment_reply/68abb4f9d6153615c8d51e62",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "51602",
+									"path": [
+										"wemedia",
+										"api",
+										"v1",
+										"comment",
+										"manage",
+										"del_comment_reply",
+										"68abb4f9d6153615c8d51e62"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "7. Delete Comment",
+							"request": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "token",
+										"value": "{{WemediaToken}}",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "http://localhost:51602/wemedia/api/v1/comment/manage//del_comment/68aba40474b60c6ec7f7dc20",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "51602",
+									"path": [
+										"wemedia",
+										"api",
+										"v1",
+										"comment",
+										"manage",
+										"",
+										"del_comment",
+										"68aba40474b60c6ec7f7dc20"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Statistic Management",
+					"item": [
+						{
+							"name": "1. Get Article Dimension",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "token",
+										"value": "{{WemediaToken}}",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "http://localhost:51602/wemedia/api/v1/statistics/newsDimension?beginDate=2025-08-20 00:00:00&endDate=2025-08-25 23:59:59",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "51602",
+									"path": [
+										"wemedia",
+										"api",
+										"v1",
+										"statistics",
+										"newsDimension"
+									],
+									"query": [
+										{
+											"key": "beginDate",
+											"value": "2025-08-20 00:00:00"
+										},
+										{
+											"key": "endDate",
+											"value": "2025-08-25 23:59:59"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "2. Display Article Statistics",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "token",
+										"value": "{{WemediaToken}}",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "http://localhost:51602/wemedia/api/v1/statistics/newsPage?beginDate=2025-08-20 00:00:00&endDate=2025-08-25 23:59:59&wmUserId=1102",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "51602",
+									"path": [
+										"wemedia",
+										"api",
+										"v1",
+										"statistics",
+										"newsPage"
+									],
+									"query": [
+										{
+											"key": "beginDate",
+											"value": "2025-08-20 00:00:00"
+										},
+										{
+											"key": "endDate",
+											"value": "2025-08-25 23:59:59"
+										},
+										{
+											"key": "wmUserId",
+											"value": "1102"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "User Management",
+					"item": [
+						{
+							"name": "Common - Upload Image",
+							"item": [
+								{
+									"name": "Upload Image",
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "token",
+												"value": "{{WemediaToken}}",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "formdata",
+											"formdata": [
+												{
+													"key": "file",
+													"type": "file",
+													"src": "/C:/Users/wenhu/Pictures/kv.png"
+												}
+											]
+										},
+										"url": {
+											"raw": "http://localhost:51602/wemedia/api/v1/wemedia/common/upload",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "51602",
+											"path": [
+												"wemedia",
+												"api",
+												"v1",
+												"wemedia",
+												"common",
+												"upload"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "1. Get User Details",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "token",
+										"value": "{{WemediaToken}}",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "http://localhost:51602/wemedia/api/v1/wemedia/get_details",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "51602",
+									"path": [
+										"wemedia",
+										"api",
+										"v1",
+										"wemedia",
+										"get_details"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "2. Get User Details by ID",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "token",
+										"value": "{{WemediaToken}}",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "http://localhost:51602/wemedia/api/v1/wemedia/get/1960595052812554242",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "51602",
+									"path": [
+										"wemedia",
+										"api",
+										"v1",
+										"wemedia",
+										"get",
+										"1960595052812554242"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "3. Update User Details",
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "token",
+										"value": "{{WemediaToken}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"id\": \"1960595052812554242\",\r\n    \"nickname\": \"鱼子酱\",\r\n    \"email\": \"wenhuey0411@gmail.com\",\r\n    \"phone\": \"1234567890\",\r\n    \"password\": \"wh123\",\r\n    \"type\": 1,\r\n    \"image\": \"http://192.168.200.130:9000/verivue/2025/08/28/69e99c56b38d48b7a0fb5854adf116ca.png\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:51602/wemedia/api/v1/wemedia/update",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "51602",
+									"path": [
+										"wemedia",
+										"api",
+										"v1",
+										"wemedia",
+										"update"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "We Media Login",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"let res = pm.response.json();\r",
+									"if (res.data && res.data.token) {\r",
+									"    pm.environment.set(\"WemediaToken\", res.data.token);\r",
+									"    console.log(\"Token Saved:\", res.data.token);\r",
+									"}"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"admin\",\r\n    \"password\" : \"admin\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:51602/wemedia/login",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "51602",
+							"path": [
+								"wemedia",
+								"login"
+							]
+						},
+						"description": "# Login Endpoint\n\nThis endpoint allows users to authenticate and log into the system. Upon successful authentication, it returns a token that can be used for subsequent requests requiring authorization.\n\n## Request\n\n### Method\n\n`POST`\n\n### URL\n\n`http://localhost:51602/wemedia/login`\n\n### Request Body\n\nThe request should be sent in JSON format with the following parameters:\n\n- **name** (string): The username of the account attempting to log in.\n    \n- **password** (string): The password associated with the account.\n    \n\n#### Example Request Body\n\n``` json\n{\n  \"name\": \"admin\",\n  \"password\": \"admin\"\n}\n\n ```\n\n## Response\n\n### Status Code\n\n`200 OK`\n\n### Content-Type\n\n`application/json`\n\n### Response Structure\n\nThe response will contain the following fields:\n\n- **host**: (null)\n    \n- **code**: (integer) Status code indicating the result of the login attempt (0 for success).\n    \n- **message**: (string) A message providing additional information about the login attempt (empty on success).\n    \n- **data**: (object) Contains the user information and token.\n    \n    - **user**: (object) Information about the authenticated user:\n        \n        - **id**: (integer) Unique identifier for the user.\n            \n        - **apUserId**: (integer) Associated user ID in the application.\n            \n        - **apAuthorId**: (null or integer) Author ID, if applicable.\n            \n        - **name**: (string) Username.\n            \n        - **password**: (string) Hashed password (not returned in response).\n            \n        - **salt**: (string) Salt used for hashing the password (not returned in response).\n            \n        - **nickname**: (string) User's nickname.\n            \n        - **image**: (null or string) URL to the user's profile image.\n            \n        - **location**: (null or string) User's location.\n            \n        - **phone**: (string) User's phone number.\n            \n        - **status**: (integer) Current status of the user account.\n            \n        - **email**: (null or string) User's email address.\n            \n        - **type**: (null or string) Type of user account.\n            \n        - **score**: (null or integer) User's score in the application.\n            \n        - **loginTime**: (null or string) Timestamp of the last login.\n            \n        - **createdTime**: (string) Timestamp of when the user account was created.\n            \n    - **token**: (string) Authentication token to be used for future requests.\n        \n\n#### Example Response\n\n``` json\n{\n  \"host\": null,\n  \"code\": 0,\n  \"message\": \"\",\n  \"data\": {\n    \"user\": {\n      \"id\": 0,\n      \"apUserId\": 0,\n      \"apAuthorId\": null,\n      \"name\": \"\",\n      \"password\": \"\",\n      \"salt\": \"\",\n      \"nickname\": \"\",\n      \"image\": null,\n      \"location\": null,\n      \"phone\": \"\",\n      \"status\": 0,\n      \"email\": null,\n      \"type\": null,\n      \"score\": null,\n      \"loginTime\": null,\n      \"createdTime\": \"\"\n    },\n    \"token\": \"\"\n  }\n}\n\n ```"
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"variable": [
+		{
+			"key": "baseURL",
+			"value": "",
+			"type": "default"
+		}
+	]
+}

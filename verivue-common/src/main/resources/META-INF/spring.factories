@@ -1,0 +1,4 @@
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+  com.verivue.common.exception.ExceptionCatch, \
+  com.verivue.common.redis.CacheService, \
+  com.verivue.common.jackson.InitJacksonConfig

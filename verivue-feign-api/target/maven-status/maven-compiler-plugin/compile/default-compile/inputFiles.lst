@@ -1,0 +1,5 @@
+D:\VeriVueProjectCopyVer\Verivue\verivue-feign-api\src\main\java\com\verivue\api\user\IUserClient.java
+D:\VeriVueProjectCopyVer\Verivue\verivue-feign-api\src\main\java\com\verivue\api\article\IArticleClient.java
+D:\VeriVueProjectCopyVer\Verivue\verivue-feign-api\src\main\java\com\verivue\api\schedule\IScheduleClient.java
+D:\VeriVueProjectCopyVer\Verivue\verivue-feign-api\src\main\java\com\verivue\api\wemedia\IWeMediaClient.java
+D:\VeriVueProjectCopyVer\Verivue\verivue-feign-api\src\main\java\com\verivue\api\article\fallback\IArticleClientFallback.java

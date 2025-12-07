@@ -1,0 +1,15 @@
+server:
+  port: 51803
+
+spring:
+  application:
+    name: verivue-wemedia
+  cloud:
+    nacos:
+      discovery:
+        server-addr: #
+      config:
+        server-addr: #
+        file-extension: yml
+        name: verivue-wemedia
+        refresh-enabled: true
