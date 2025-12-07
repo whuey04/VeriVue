@@ -121,7 +121,7 @@ Before running the project, ensure you have the following software installed (ei
 ### 2. Download or Clone the Repository
 
 ```
-git clone https://github.com/WenHuey04/VeriVue.git
+git clone https://github.com/whuey04/VeriVue.git
 cd VeriVue
 ```
 
